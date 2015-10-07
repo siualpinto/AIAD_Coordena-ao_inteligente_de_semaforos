@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<connections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+
+	<!-- semaforo 5-->
+	<!--<connection from="d" to="e"/>
+	<connection from="e2" to="d2"/>
+	<connection from="n" to="r"/>
+	<connection from="r2" to="n2"/>-->
+
+	<!-- semaforo 6-->
+	<!--<connection from="e" to="f"/>
+	<connection from="f2" to="e2"/>
+	<connection from="o" to="s"/>
+	<connection from="s2" to="o2"/>-->
+
+	<!-- semaforo 9-->
+	<!--<connection from="g" to="h"/>
+	<connection from="h2" to="g2"/>
+	<connection from="r" to="v"/>
+	<connection from="v2" to="r2"/>-->
+
+	<!-- semaforo 10-->
+	<!--<connection from="s" to="w"/>
+	<connection from="w2" to="s2"/>
+	<connection from="h" to="i"/>
+	<connection from="i2" to="h2"/>-->
+
+
+</connections>

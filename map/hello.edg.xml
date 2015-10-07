@@ -1,0 +1,59 @@
+<edges>
+	<!--		estradas horizontais de baixo para cima	-->
+	<edge id="a" from="0" to="1" priority="1" numLanes="1" speed="10" />
+	<edge id="b" from="1" to="2" priority="1" numLanes="1" speed="10" />
+	<edge id="c" from="2" to="3" priority="1" numLanes="1" speed="10" />	
+	<edge id="a2" from="1" to="0" priority="1" numLanes="1" speed="10" />
+	<edge id="b2" from="2" to="1" priority="1" numLanes="1" speed="10" />
+	<edge id="c2" from="3" to="2" priority="1" numLanes="1" speed="10" />
+
+	<edge id="d" from="4" to="5" priority="1" numLanes="1" speed="10" />
+	<edge id="e" from="5" to="6" priority="1" numLanes="1" speed="10" />
+	<edge id="f" from="6" to="7" priority="1" numLanes="1" speed="10" />
+	<edge id="d2" from="5" to="4" priority="1" numLanes="1" speed="10" />
+	<edge id="e2" from="6" to="5" priority="1" numLanes="1" speed="10" />
+	<edge id="f2" from="7" to="6" priority="1" numLanes="1" speed="10" />
+
+	<edge id="g" from="8" to="9" priority="1" numLanes="1" speed="10" />
+	<edge id="h" from="9" to="10" priority="1" numLanes="1" speed="10" />
+	<edge id="i" from="10" to="11" priority="1" numLanes="1" speed="10" />	
+	<edge id="g2" from="9" to="8" priority="1" numLanes="1" speed="10" />
+	<edge id="h2" from="10" to="9" priority="1" numLanes="1" speed="10" />
+	<edge id="i2" from="11" to="10" priority="1" numLanes="1" speed="10" />
+
+	<edge id="j" from="12" to="13" priority="1" numLanes="1" speed="10" />
+	<edge id="k" from="13" to="14" priority="1" numLanes="1" speed="10" />
+	<edge id="l" from="14" to="15" priority="1" numLanes="1" speed="10" />	
+	<edge id="j2" from="13" to="12" priority="1" numLanes="1" speed="10" />
+	<edge id="k2" from="14" to="13" priority="1" numLanes="1" speed="10" />
+	<edge id="l2" from="15" to="14" priority="1" numLanes="1" speed="10" />
+
+	<!--		estradas verticais	da esq para dir -->
+	<edge id="m" from="0" to="4" priority="1" numLanes="1" speed="10" />
+	<edge id="n" from="1" to="5" priority="1" numLanes="1" speed="10" />
+	<edge id="o" from="2" to="6" priority="1" numLanes="1" speed="10" />
+	<edge id="p" from="3" to="7" priority="1" numLanes="1" speed="10" />
+	<edge id="m2" from="4" to="0" priority="1" numLanes="1" speed="10" />
+	<edge id="n2" from="5" to="1" priority="1" numLanes="1" speed="10" />
+	<edge id="o2" from="6" to="2" priority="1" numLanes="1" speed="10" />
+	<edge id="p2" from="7" to="3" priority="1" numLanes="1" speed="10" />
+
+	<edge id="q" from="4" to="8" priority="1" numLanes="1" speed="10" />
+	<edge id="r" from="5" to="9" priority="1" numLanes="1" speed="10" />
+	<edge id="s" from="6" to="10" priority="1" numLanes="1" speed="10" />
+	<edge id="t" from="7" to="11" priority="1" numLanes="1" speed="10" />
+	<edge id="q2" from="8" to="4" priority="1" numLanes="1" speed="10" />
+	<edge id="r2" from="9" to="5" priority="1" numLanes="1" speed="10" />
+	<edge id="s2" from="10" to="6" priority="1" numLanes="1" speed="10" />
+	<edge id="t2" from="11" to="7" priority="1" numLanes="1" speed="10" />
+
+	<edge id="u" from="8" to="12" priority="1" numLanes="1" speed="10" />
+	<edge id="v" from="9" to="13" priority="1" numLanes="1" speed="10" />
+	<edge id="w" from="10" to="14" priority="1" numLanes="1" speed="10" />
+	<edge id="y" from="11" to="15" priority="1" numLanes="1" speed="10" />
+	<edge id="u2" from="12" to="8" priority="1" numLanes="1" speed="10" />
+	<edge id="v2" from="13" to="9" priority="1" numLanes="1" speed="10" />
+	<edge id="w2" from="14" to="10" priority="1" numLanes="1" speed="10" />
+	<edge id="y2" from="15" to="11" priority="1" numLanes="1" speed="10" />
+
+</edges>

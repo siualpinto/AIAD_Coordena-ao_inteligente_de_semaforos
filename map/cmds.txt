@@ -1,0 +1,23 @@
+*****************************
+*	CRIAR NETWORK NOVA:		*
+*****************************
+
+C:\Javalib\sumo-win32-0.24.0\sumo-0.24.0\bin\netconvert --node-files=hello.nod.xml --edge-files=hello.edg.xml --output-file=hello.net.xml
+
+
+
+
+*****************************
+*	CRIAR ROTAS NOVAS:		*
+*****************************
+
+C:\Javalib\sumo-win32-0.24.0\sumo-0.24.0\bin\duarouter -n hello.net.xml -f flow.xml -o hello.rou.xml
+
+
+
+
+*****************************
+*	CORRER NO SUMO:			*
+*****************************
+
+C:\Javalib\sumo-win32-0.24.0\sumo-0.24.0\bin\sumo-gui.exe -c hello.sumo.cfg
