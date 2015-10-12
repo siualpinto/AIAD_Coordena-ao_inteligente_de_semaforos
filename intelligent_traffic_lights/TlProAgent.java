@@ -11,19 +11,15 @@ import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 
-public class TlAgent extends Agent{
-
-
+public class TlProAgent extends Agent{
 	private static final long serialVersionUID = 6095960260125307076L;
-
 	private String id;
 	public TrafficLight tl;
 	public ArrayList<String> controlledLanes;
 
-	public TlAgent(String tlID) {
+	public TlProAgent(String tlID) {
 
 		super();
-
 		try {
 			
 			System.out.println("TlAgent id: "+this.id);
@@ -32,9 +28,9 @@ public class TlAgent extends Agent{
 			//tl.setState("gggg");
 			//System.out.println("state: "+tl.getState());
 			controlledLanes = tl.getControlledLanes();
-			for (String string : controlledLanes) {
-				System.out.println("\tRua: "+string);
-			}
+//			for (String string : controlledLanes) {
+//				System.out.println("\tRua: "+string);
+//			}
 			
 		} catch (UnimplementedMethod e) {
 			e.printStackTrace();
