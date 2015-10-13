@@ -1,9 +1,23 @@
 package intelligent_traffic_lights;
 
+/**
+ * 			FORMATO DO ESTADO DO SEMAFORO / ordem das cores :
+ * 			[CIMA,DIREITA,BAIXO,ESQUERDA]
+ * 			se o semaforo tiver 4 estradas
+ * 
+ * 		Funcionamento deste agente:
+ * 			1-> verifica qual a direção que tem mais carros
+ * 			2-> fica verde para essa direção
+ * 			3-> espera 5s e volta a 1
+ */
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.Set;
 import trasmapi.genAPI.TrafficLight;
 import trasmapi.genAPI.exceptions.UnimplementedMethod;
+import trasmapi.sumo.SumoEdge;
 import trasmapi.sumo.SumoTrafficLight;
 import jade.core.Agent;
 import jade.core.behaviours.SimpleBehaviour;
@@ -17,21 +31,76 @@ public class TlBasicAgent extends Agent{
 	private String id;
 	public TrafficLight tl;
 	public ArrayList<String> controlledLanes;
+	public ArrayList<SumoEdge> controlledEgdes;
+	public String horizontalGreen, verticalGreen, horizontalYellow, verticalYellow;
+	public ArrayList<Integer> verticalIndex,horizontalIndex;
 
 	public TlBasicAgent(String tlID) {
 		super();
 		try {
-			
+
 			System.out.println("TlAgent id: "+this.id);
 
 			tl = new SumoTrafficLight(tlID);
-			//tl.setState("gggggggggggggggg");
-			//System.out.println("state: "+tl.getState());
+
 			controlledLanes = tl.getControlledLanes();
-//			for (String string : controlledLanes) {
-//				System.out.println("\tRua: "+string);
+			//remover duplicados
+			Set<String> setItems = new LinkedHashSet<String>(controlledLanes);
+			controlledLanes.clear();
+			controlledLanes.addAll(setItems);
+			//
+			int numCoresPorSemaforo = tl.getState().length()/controlledLanes.size();
+			String red = stringOfSize(numCoresPorSemaforo, 'r');
+			String green = stringOfSize(numCoresPorSemaforo, 'g');
+			String yellow = stringOfSize(numCoresPorSemaforo, 'y');
+			verticalGreen=verticalYellow=horizontalGreen=horizontalYellow="";
+			verticalIndex= new ArrayList<Integer>();
+			horizontalIndex= new ArrayList<Integer>();
+			String st = tl.getState();
+			st=st.replace('G', 'g');
+			st=st.replace('R', 'r');
+			//rrrgggggg
+			//System.out.println(tlID+" : "+st);
+			char color = st.charAt(0);
+			int index=0;
+			for (int i = 0; i < st.length(); i+=numCoresPorSemaforo) {
+				if(st.charAt(i)==color){
+					verticalGreen+=green;
+					verticalYellow+=yellow;
+					horizontalGreen+=red;
+					horizontalYellow+=red;
+					verticalIndex.add(index);
+				}else {
+					verticalGreen+=red;
+					verticalYellow+=red;
+					horizontalGreen+=green;
+					horizontalYellow+=yellow;
+					horizontalIndex.add(index);
+				}
+				index++;
+			}
+//			System.out.println("verticalGreen: "+verticalGreen);
+//			for (int i = 0; i < controlledLanes.size(); i++) {
+//				if(i%2==0){
+//					verticalGreen+=green;
+//					verticalYellow+=yellow;
+//					horizontalGreen+=red;
+//					horizontalYellow+=red;
+//				}else {
+//					verticalGreen+=red;
+//					verticalYellow+=red;
+//					horizontalGreen+=green;
+//					horizontalYellow+=yellow;
+//				}
 //			}
-			
+
+			controlledEgdes = new ArrayList<SumoEdge>();
+			for (String edgeId : controlledLanes) {
+				controlledEgdes.add(new SumoEdge(edgeId.split("_")[0]));
+				System.out.println(tlID+": "+controlledEgdes.get(controlledEgdes.size()-1).getId());
+			}
+			tl.setState(horizontalGreen);
+
 		} catch (UnimplementedMethod e) {
 			e.printStackTrace();
 		}
@@ -73,23 +142,85 @@ public class TlBasicAgent extends Agent{
 		super.takeDown();
 	}
 
+	/**
+	 * Troca a direção que está verde
+	 * @param yellow
+	 * @param green
+	 */
+	private void changeState(String yellow, String green){
+		try {
+			tl.setState(yellow);
+			Thread.sleep(1000);
+			tl.setState(green);
+		} catch (UnimplementedMethod e1) {
+			e1.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Obter a direção que tem mais carros
+	 * @return retorna true se tem mais carros na vertical do que na horizontal
+	 */
+	public boolean verticalHaveMoreCars(){
+		int sumHorizontal=0,sumVertical=0;
+//		for (int i = 0; i < controlledEgdes.size(); i++) {
+//			if(i%2==0){
+//				sumVertical+=controlledEgdes.get(i).getNumVehicles();
+//			}else {
+//				sumHorizontal+=controlledEgdes.get(i).getNumVehicles();
+//			}
+//		}
+		for (int i : verticalIndex) {
+			sumVertical+=controlledEgdes.get(i).getNumVehicles();
+		}
+		for (int i : horizontalIndex) {
+			sumHorizontal+=controlledEgdes.get(i).getNumVehicles();
+		}
+		return (sumVertical>=sumHorizontal);
+	}
+
+	public String stringOfSize(int size, char ch)
+	{
+		final char[] array = new char[size];
+		Arrays.fill(array, ch);
+		return new String(array);
+	}
+
+	// ==================================================================================
+	//    NestedClass
+	// ==================================================================================
 	public class TlBasicBehaviour extends SimpleBehaviour {
 		private static final long serialVersionUID = 1L;
-		
+
 		public TlBasicBehaviour(Agent a) {
 			super(a);
 		}
-		
+
 		@Override
 		public void action() {
-			// TODO Auto-generated method stub
-			
+			try {
+				if(verticalHaveMoreCars()){	
+					if(!tl.getState().equals(verticalGreen))
+						changeState(horizontalYellow, verticalGreen);
+				}else{
+					if(!tl.getState().equals(horizontalGreen))
+						changeState(verticalYellow,horizontalGreen);
+				}
+			} catch (UnimplementedMethod e) {
+				e.printStackTrace();
+			}
+			try {
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 
 		@Override
 		public boolean done() {
-			// TODO Auto-generated method stub
-			return true;
+			return false;
 		}
 	}
 }
