@@ -32,6 +32,13 @@ public class TlBasicAgent extends Agent{
 	public TrafficLight tl;
 	public ArrayList<String> controlledLanes;
 	public ArrayList<SumoEdge> controlledEgdes;
+	
+	/**
+	 * Atenção que o uso de vertical e horizontal no nome das seguintes variáveis é só para orientação
+	 * porque na realidade as direções podem estar trocadas, todo depende do numero de estradas que cruzam no semaforo
+	 * e em que posição. 
+	 * 
+	 */
 	public String horizontalGreen, verticalGreen, horizontalYellow, verticalYellow;
 	public ArrayList<Integer> verticalIndex,horizontalIndex;
 
@@ -49,6 +56,8 @@ public class TlBasicAgent extends Agent{
 			controlledLanes.clear();
 			controlledLanes.addAll(setItems);
 			//
+			
+			// ========= definição das cores para verde horizontal ou vertical
 			int numCoresPorSemaforo = tl.getState().length()/controlledLanes.size();
 			String red = stringOfSize(numCoresPorSemaforo, 'r');
 			String green = stringOfSize(numCoresPorSemaforo, 'g');
@@ -59,8 +68,6 @@ public class TlBasicAgent extends Agent{
 			String st = tl.getState();
 			st=st.replace('G', 'g');
 			st=st.replace('R', 'r');
-			//rrrgggggg
-			//System.out.println(tlID+" : "+st);
 			char color = st.charAt(0);
 			int index=0;
 			for (int i = 0; i < st.length(); i+=numCoresPorSemaforo) {
@@ -79,25 +86,10 @@ public class TlBasicAgent extends Agent{
 				}
 				index++;
 			}
-//			System.out.println("verticalGreen: "+verticalGreen);
-//			for (int i = 0; i < controlledLanes.size(); i++) {
-//				if(i%2==0){
-//					verticalGreen+=green;
-//					verticalYellow+=yellow;
-//					horizontalGreen+=red;
-//					horizontalYellow+=red;
-//				}else {
-//					verticalGreen+=red;
-//					verticalYellow+=red;
-//					horizontalGreen+=green;
-//					horizontalYellow+=yellow;
-//				}
-//			}
 
 			controlledEgdes = new ArrayList<SumoEdge>();
 			for (String edgeId : controlledLanes) {
 				controlledEgdes.add(new SumoEdge(edgeId.split("_")[0]));
-				System.out.println(tlID+": "+controlledEgdes.get(controlledEgdes.size()-1).getId());
 			}
 			tl.setState(horizontalGreen);
 
@@ -165,13 +157,6 @@ public class TlBasicAgent extends Agent{
 	 */
 	public boolean verticalHaveMoreCars(){
 		int sumHorizontal=0,sumVertical=0;
-//		for (int i = 0; i < controlledEgdes.size(); i++) {
-//			if(i%2==0){
-//				sumVertical+=controlledEgdes.get(i).getNumVehicles();
-//			}else {
-//				sumHorizontal+=controlledEgdes.get(i).getNumVehicles();
-//			}
-//		}
 		for (int i : verticalIndex) {
 			sumVertical+=controlledEgdes.get(i).getNumVehicles();
 		}
