@@ -843,4 +843,30 @@ public class SumoVehicle extends Vehicle {
 //			e.printStackTrace();
 //		}
 	}
+	
+	public static double loadLength(String id) {
+        Command cmd = new Command(Constants.CMD_GET_VEHICLE_VARIABLE);
+        Content cnt = new Content(Constants.VAR_LENGTH, id);
+
+        cmd.setContent(cnt);
+
+        RequestMessage reqMsg = new RequestMessage();
+        reqMsg.addCommand(cmd);
+
+        try {
+            ResponseMessage rspMsg = SumoCom.query(reqMsg);
+            Content content = rspMsg.validate(
+                    (byte)Constants.CMD_GET_VEHICLE_VARIABLE,
+                    (byte)Constants.RESPONSE_GET_VEHICLE_VARIABLE,
+                    (byte)Constants.VAR_LENGTH,
+                    (byte)Constants.TYPE_DOUBLE);
+
+            return (float) content.getDouble();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (WrongCommand e) {
+            e.printStackTrace();
+        }
+		return 0;
+	}
 }

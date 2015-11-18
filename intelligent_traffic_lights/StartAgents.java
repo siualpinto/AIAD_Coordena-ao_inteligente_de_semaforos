@@ -14,6 +14,7 @@ import trasmapi.genAPI.TraSMAPI;
 import trasmapi.genAPI.exceptions.TimeoutException;
 import trasmapi.genAPI.exceptions.UnimplementedMethod;
 import trasmapi.sumo.Sumo;
+import trasmapi.sumo.SumoCom;
 import trasmapi.sumo.SumoTrafficLight;
 
 public class StartAgents {
@@ -87,9 +88,13 @@ public class StartAgents {
 			public void run(){
 				while(true){
 					try {
-						if(!api.simulationStep(0))
+						if(!api.simulationStep(0) || SumoCom.getAllVehiclesIds().size()<=0){
+							sumo.close();
 							break;
+						}
 					} catch (UnimplementedMethod e) {
+						e.printStackTrace();
+					} catch (IOException e) {
 						e.printStackTrace();
 					}
 				}

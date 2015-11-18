@@ -22,8 +22,10 @@ import java.util.Set;
 import jade.core.Agent;
 import trasmapi.genAPI.TrafficLight;
 import trasmapi.genAPI.exceptions.UnimplementedMethod;
+import trasmapi.sumo.Sumo;
 import trasmapi.sumo.SumoEdge;
 import trasmapi.sumo.SumoTrafficLight;
+import trasmapi.sumo.SumoVehicle;
 
 public class TlAgent extends Agent {
 	private static final long serialVersionUID = 1L;
@@ -31,7 +33,7 @@ public class TlAgent extends Agent {
 	private String id;
 	public TrafficLight tl;
 	public ArrayList<String> controlledLanes;
-	public ArrayList<SumoEdge> controlledEgdes;
+	public ArrayList<SumoEdge> controlledEdges, neighborEdges;
 	/**
 	 * Atenção que o uso de vertical e horizontal no nome das seguintes variáveis é só para orientação
 	 * porque na realidade as direções podem estar trocadas, todo depende do numero de estradas que cruzam no semaforo
@@ -50,6 +52,7 @@ public class TlAgent extends Agent {
 			tl = new SumoTrafficLight(tlID);
 
 			controlledLanes = tl.getControlledLanes();
+
 			//remover duplicados
 			Set<String> setItems = new LinkedHashSet<String>(controlledLanes);
 			controlledLanes.clear();
@@ -86,10 +89,17 @@ public class TlAgent extends Agent {
 				index++;
 			}
 
-			controlledEgdes = new ArrayList<SumoEdge>();
+			neighborEdges = new ArrayList<SumoEdge>();
+			controlledEdges = new ArrayList<SumoEdge>();
+			String edge="";
 			for (String edgeId : controlledLanes) {
-				controlledEgdes.add(new SumoEdge(edgeId.split("_")[0]));
+				edge=edgeId.split("_")[0];
+				controlledEdges.add(new SumoEdge(edge));
+				if(edge.charAt(edge.length()-1)== '2'){
+					neighborEdges.add(new SumoEdge(edge.substring(0, 1)));
+				}else neighborEdges.add(new SumoEdge(edge+"2"));
 			}
+
 			tl.setState(horizontalGreen);
 
 		} catch (UnimplementedMethod e) {
@@ -111,7 +121,7 @@ public class TlAgent extends Agent {
 		} catch (UnimplementedMethod e1) {
 			e1.printStackTrace();
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 
@@ -119,15 +129,41 @@ public class TlAgent extends Agent {
 	 * Obter a direção que tem mais carros
 	 * @return retorna true se tem mais carros na vertical do que na horizontal
 	 */
-	public boolean verticalHasMoreCars(){
-		int sumHorizontal=0,sumVertical=0;
+	public int verticalHasMoreCars(){
+		
+		//int sumHorizontal=0,sumVertical=0;
+		int sumHorizontalParados=0,sumVerticalParados=0;
 		for (int i : verticalIndex) {
-			sumVertical+=controlledEgdes.get(i).getNumVehicles();
+//			sumVertical+=controlledEdges.get(i).getNumVehicles();
+//			
+//			if(controlledEdges.get(i).getNumVehicles() != controlledEdges.get(i).vehiclesList().size() ){
+//				System.err.println("Num carros errado");
+//			}
+			
+			for(SumoVehicle c : controlledEdges.get(i).vehiclesList()){
+				if(c.getSpeed() <= 0.5){
+					sumVerticalParados++;
+				}
+			}
 		}
 		for (int i : horizontalIndex) {
-			sumHorizontal+=controlledEgdes.get(i).getNumVehicles();
+//			sumHorizontal+=controlledEdges.get(i).getNumVehicles();
+//			
+//			if(controlledEdges.get(i).getNumVehicles() != controlledEdges.get(i).vehiclesList().size() ){
+//				System.err.println("Num carros errado");
+//			}
+
+			for(SumoVehicle c : controlledEdges.get(i).vehiclesList()){
+//				if(tl.getId().equals("5"))
+//					System.out.println(c.getSpeed());
+				if(c.getSpeed() <= 0.5){
+					sumHorizontalParados++;
+				}
+			}
 		}
-		return (sumVertical>=sumHorizontal);
+//		if(tl.getId().equals("5"))
+//			System.out.println("Semaforo : "+tl.getId()+" Vertical: "+sumVerticalParados+" H:"+sumHorizontalParados);
+		return (sumVerticalParados-sumHorizontalParados);
 	}
 
 	public String stringOfSize(int size, char ch)

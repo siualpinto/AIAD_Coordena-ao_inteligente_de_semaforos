@@ -71,10 +71,17 @@ public class TlBasicAgent extends TlAgent{
 		@Override
 		public void action() {
 			try {
-				if(verticalHasMoreCars()){	
+				int diff =verticalHasMoreCars(); 
+				if(diff>0){	
+					if(tl.getId().equals("5")){
+						System.out.println("VERTICAL");
+					}
 					if(!tl.getState().equals(verticalGreen))
 						changeState(horizontalYellow, verticalGreen);
-				}else{
+				}else if(diff<0){
+					if(tl.getId().equals("5")){
+						System.out.println("HORIZONTAL");
+					}
 					if(!tl.getState().equals(horizontalGreen))
 						changeState(verticalYellow,horizontalGreen);
 				}
@@ -84,7 +91,7 @@ public class TlBasicAgent extends TlAgent{
 			try {
 				Thread.sleep(5000);
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 		}
 
