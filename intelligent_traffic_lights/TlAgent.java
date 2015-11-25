@@ -22,14 +22,14 @@ import java.util.Set;
 import jade.core.Agent;
 import trasmapi.genAPI.TrafficLight;
 import trasmapi.genAPI.exceptions.UnimplementedMethod;
-import trasmapi.sumo.Sumo;
 import trasmapi.sumo.SumoEdge;
 import trasmapi.sumo.SumoTrafficLight;
 import trasmapi.sumo.SumoVehicle;
 
 public class TlAgent extends Agent {
 	private static final long serialVersionUID = 1L;
-
+	public static int MAX_CARS = 12;
+	public static double STOP_SPEED = 0.5;
 	private String id;
 	public TrafficLight tl;
 	public ArrayList<String> controlledLanes;
@@ -131,7 +131,7 @@ public class TlAgent extends Agent {
 	 */
 	public int verticalHasMoreCars(){
 		
-		//int sumHorizontal=0,sumVertical=0;
+//		int sumHorizontal=0,sumVertical=0;
 		int sumHorizontalParados=0,sumVerticalParados=0;
 		for (int i : verticalIndex) {
 //			sumVertical+=controlledEdges.get(i).getNumVehicles();
@@ -141,7 +141,7 @@ public class TlAgent extends Agent {
 //			}
 			
 			for(SumoVehicle c : controlledEdges.get(i).vehiclesList()){
-				if(c.getSpeed() <= 0.5){
+				if(c.getSpeed() <= STOP_SPEED){
 					sumVerticalParados++;
 				}
 			}
@@ -156,7 +156,7 @@ public class TlAgent extends Agent {
 			for(SumoVehicle c : controlledEdges.get(i).vehiclesList()){
 //				if(tl.getId().equals("5"))
 //					System.out.println(c.getSpeed());
-				if(c.getSpeed() <= 0.5){
+				if(c.getSpeed() <= STOP_SPEED){
 					sumHorizontalParados++;
 				}
 			}

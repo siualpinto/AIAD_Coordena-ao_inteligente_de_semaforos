@@ -71,17 +71,17 @@ public class TlBasicAgent extends TlAgent{
 		@Override
 		public void action() {
 			try {
-				int diff =verticalHasMoreCars(); 
+				int diff=verticalHasMoreCars(); 
 				if(diff>0){	
-					if(tl.getId().equals("5")){
-						System.out.println("VERTICAL");
-					}
+//					if(tl.getId().equals("5")){
+//						System.out.println("VERTICAL");
+//					}
 					if(!tl.getState().equals(verticalGreen))
 						changeState(horizontalYellow, verticalGreen);
 				}else if(diff<0){
-					if(tl.getId().equals("5")){
-						System.out.println("HORIZONTAL");
-					}
+//					if(tl.getId().equals("5")){
+//						System.out.println("HORIZONTAL");
+//					}
 					if(!tl.getState().equals(horizontalGreen))
 						changeState(verticalYellow,horizontalGreen);
 				}

@@ -52,6 +52,7 @@ public class StartAgents {
 
 		//Add Sumo to TraSMAPI
 		api.addSimulator(sumo);
+		
 
 		//Launch and Connect all the simulators added
 		try {
@@ -89,13 +90,13 @@ public class StartAgents {
 				while(true){
 					try {
 						if(!api.simulationStep(0) || SumoCom.getAllVehiclesIds().size()<=0){
-							sumo.close();
+							//sumo.close();
 							break;
 						}
 					} catch (UnimplementedMethod e) {
 						e.printStackTrace();
-					} catch (IOException e) {
-						e.printStackTrace();
+					//} catch (IOException e) {
+					//	e.printStackTrace();
 					}
 				}
 			}
