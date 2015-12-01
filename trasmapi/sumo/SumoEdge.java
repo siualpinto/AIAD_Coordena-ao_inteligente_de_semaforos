@@ -214,5 +214,4 @@ public class SumoEdge extends Edge {
 		}
 		return null;		
 	}
-
 }

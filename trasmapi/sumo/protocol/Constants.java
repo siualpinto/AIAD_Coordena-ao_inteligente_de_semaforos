@@ -359,7 +359,7 @@ public class Constants {
 	public static final int DOMVAR_DRIVINGDISTANCE = 0x11;
 	// external integer id of a certain object
 	public static final int DOMVAR_EXTID = 0x12;
-	// angle of a certain object, in degrees [0..360)
+	// angle of a certain object, in degrees [0..360])
 	public static final int DOMVAR_ANGLE = 0x13;
 	// current simulation time
 	public static final int DOMVAR_SIMTIME = 0x14;

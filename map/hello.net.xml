@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 11/18/15 12:32:11 by SUMO netconvert Version 0.24.0
+<!-- generated on 12/01/15 15:58:55 by SUMO netconvert Version 0.24.0
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -13,6 +13,7 @@
 
     <output>
         <output-file value="hello.net.xml"/>
+        <output.street-names value="true"/>
     </output>
 
 </configuration>
@@ -695,148 +696,148 @@
         <lane id=":9_23_0" index="0" speed="10.00" length="2.41" shape="96.90,200.00 96.49,200.82 95.25,201.65"/>
     </edge>
 
-    <edge id="a" from="0" to="1" priority="1">
+    <edge id="a" from="0" to="1" name="horizontal" priority="1">
         <lane id="a_0" index="0" speed="10.00" length="92.00" shape="3.25,-1.65 95.25,-1.65"/>
     </edge>
-    <edge id="a2" from="1" to="0" priority="1">
+    <edge id="a2" from="1" to="0" name="horizontal" priority="1">
         <lane id="a2_0" index="0" speed="10.00" length="92.00" shape="95.25,1.65 3.25,1.65"/>
     </edge>
-    <edge id="b" from="1" to="2" priority="1">
+    <edge id="b" from="1" to="2" name="horizontal" priority="1">
         <lane id="b_0" index="0" speed="10.00" length="90.50" shape="104.75,-1.65 195.25,-1.65"/>
     </edge>
-    <edge id="b2" from="2" to="1" priority="1">
+    <edge id="b2" from="2" to="1" name="horizontal" priority="1">
         <lane id="b2_0" index="0" speed="10.00" length="90.50" shape="195.25,1.65 104.75,1.65"/>
     </edge>
-    <edge id="c" from="2" to="3" priority="1">
+    <edge id="c" from="2" to="3" name="horizontal" priority="1">
         <lane id="c_0" index="0" speed="10.00" length="92.00" shape="204.75,-1.65 296.75,-1.65"/>
     </edge>
-    <edge id="c2" from="3" to="2" priority="1">
+    <edge id="c2" from="3" to="2" name="horizontal" priority="1">
         <lane id="c2_0" index="0" speed="10.00" length="92.00" shape="296.75,1.65 204.75,1.65"/>
     </edge>
-    <edge id="d" from="4" to="5" priority="1">
+    <edge id="d" from="4" to="5" name="horizontal" priority="1">
         <lane id="d_0" index="0" speed="10.00" length="90.50" shape="4.75,98.35 95.25,98.35"/>
     </edge>
-    <edge id="d2" from="5" to="4" priority="1">
+    <edge id="d2" from="5" to="4" name="horizontal" priority="1">
         <lane id="d2_0" index="0" speed="10.00" length="90.50" shape="95.25,101.65 4.75,101.65"/>
     </edge>
-    <edge id="e" from="5" to="6" priority="1">
+    <edge id="e" from="5" to="6" name="horizontal" priority="1">
         <lane id="e_0" index="0" speed="10.00" length="90.50" shape="104.75,98.35 195.25,98.35"/>
     </edge>
-    <edge id="e2" from="6" to="5" priority="1">
+    <edge id="e2" from="6" to="5" name="horizontal" priority="1">
         <lane id="e2_0" index="0" speed="10.00" length="90.50" shape="195.25,101.65 104.75,101.65"/>
     </edge>
-    <edge id="f" from="6" to="7" priority="1">
+    <edge id="f" from="6" to="7" name="horizontal" priority="1">
         <lane id="f_0" index="0" speed="10.00" length="90.50" shape="204.75,98.35 295.25,98.35"/>
     </edge>
-    <edge id="f2" from="7" to="6" priority="1">
+    <edge id="f2" from="7" to="6" name="horizontal" priority="1">
         <lane id="f2_0" index="0" speed="10.00" length="90.50" shape="295.25,101.65 204.75,101.65"/>
     </edge>
-    <edge id="g" from="8" to="9" priority="1">
+    <edge id="g" from="8" to="9" name="horizontal" priority="1">
         <lane id="g_0" index="0" speed="10.00" length="90.50" shape="4.75,198.35 95.25,198.35"/>
     </edge>
-    <edge id="g2" from="9" to="8" priority="1">
+    <edge id="g2" from="9" to="8" name="horizontal" priority="1">
         <lane id="g2_0" index="0" speed="10.00" length="90.50" shape="95.25,201.65 4.75,201.65"/>
     </edge>
-    <edge id="h" from="9" to="10" priority="1">
+    <edge id="h" from="9" to="10" name="horizontal" priority="1">
         <lane id="h_0" index="0" speed="10.00" length="90.50" shape="104.75,198.35 195.25,198.35"/>
     </edge>
-    <edge id="h2" from="10" to="9" priority="1">
+    <edge id="h2" from="10" to="9" name="horizontal" priority="1">
         <lane id="h2_0" index="0" speed="10.00" length="90.50" shape="195.25,201.65 104.75,201.65"/>
     </edge>
-    <edge id="i" from="10" to="11" priority="1">
+    <edge id="i" from="10" to="11" name="horizontal" priority="1">
         <lane id="i_0" index="0" speed="10.00" length="90.50" shape="204.75,198.35 295.25,198.35"/>
     </edge>
-    <edge id="i2" from="11" to="10" priority="1">
+    <edge id="i2" from="11" to="10" name="horizontal" priority="1">
         <lane id="i2_0" index="0" speed="10.00" length="90.50" shape="295.25,201.65 204.75,201.65"/>
     </edge>
-    <edge id="j" from="12" to="13" priority="1">
+    <edge id="j" from="12" to="13" name="horizontal" priority="1">
         <lane id="j_0" index="0" speed="10.00" length="92.00" shape="3.25,298.35 95.25,298.35"/>
     </edge>
-    <edge id="j2" from="13" to="12" priority="1">
+    <edge id="j2" from="13" to="12" name="horizontal" priority="1">
         <lane id="j2_0" index="0" speed="10.00" length="92.00" shape="95.25,301.65 3.25,301.65"/>
     </edge>
-    <edge id="k" from="13" to="14" priority="1">
+    <edge id="k" from="13" to="14" name="horizontal" priority="1">
         <lane id="k_0" index="0" speed="10.00" length="90.50" shape="104.75,298.35 195.25,298.35"/>
     </edge>
-    <edge id="k2" from="14" to="13" priority="1">
+    <edge id="k2" from="14" to="13" name="horizontal" priority="1">
         <lane id="k2_0" index="0" speed="10.00" length="90.50" shape="195.25,301.65 104.75,301.65"/>
     </edge>
-    <edge id="l" from="14" to="15" priority="1">
+    <edge id="l" from="14" to="15" name="horizontal" priority="1">
         <lane id="l_0" index="0" speed="10.00" length="92.00" shape="204.75,298.35 296.75,298.35"/>
     </edge>
-    <edge id="l2" from="15" to="14" priority="1">
+    <edge id="l2" from="15" to="14" name="horizontal" priority="1">
         <lane id="l2_0" index="0" speed="10.00" length="92.00" shape="296.75,301.65 204.75,301.65"/>
     </edge>
-    <edge id="m" from="0" to="4" priority="1">
+    <edge id="m" from="0" to="4" name="vertical" priority="1">
         <lane id="m_0" index="0" speed="10.00" length="92.00" shape="1.65,3.25 1.65,95.25"/>
     </edge>
-    <edge id="m2" from="4" to="0" priority="1">
+    <edge id="m2" from="4" to="0" name="vertical" priority="1">
         <lane id="m2_0" index="0" speed="10.00" length="92.00" shape="-1.65,95.25 -1.65,3.25"/>
     </edge>
-    <edge id="n" from="1" to="5" priority="1">
+    <edge id="n" from="1" to="5" name="vertical" priority="1">
         <lane id="n_0" index="0" speed="10.00" length="90.50" shape="101.65,4.75 101.65,95.25"/>
     </edge>
-    <edge id="n2" from="5" to="1" priority="1">
+    <edge id="n2" from="5" to="1" name="vertical" priority="1">
         <lane id="n2_0" index="0" speed="10.00" length="90.50" shape="98.35,95.25 98.35,4.75"/>
     </edge>
-    <edge id="o" from="2" to="6" priority="1">
+    <edge id="o" from="2" to="6" name="vertical" priority="1">
         <lane id="o_0" index="0" speed="10.00" length="90.50" shape="201.65,4.75 201.65,95.25"/>
     </edge>
-    <edge id="o2" from="6" to="2" priority="1">
+    <edge id="o2" from="6" to="2" name="vertical" priority="1">
         <lane id="o2_0" index="0" speed="10.00" length="90.50" shape="198.35,95.25 198.35,4.75"/>
     </edge>
-    <edge id="p" from="3" to="7" priority="1">
+    <edge id="p" from="3" to="7" name="vertical" priority="1">
         <lane id="p_0" index="0" speed="10.00" length="92.00" shape="301.65,3.25 301.65,95.25"/>
     </edge>
-    <edge id="p2" from="7" to="3" priority="1">
+    <edge id="p2" from="7" to="3" name="vertical" priority="1">
         <lane id="p2_0" index="0" speed="10.00" length="92.00" shape="298.35,95.25 298.35,3.25"/>
     </edge>
-    <edge id="q" from="4" to="8" priority="1">
+    <edge id="q" from="4" to="8" name="vertical" priority="1">
         <lane id="q_0" index="0" speed="10.00" length="90.50" shape="1.65,104.75 1.65,195.25"/>
     </edge>
-    <edge id="q2" from="8" to="4" priority="1">
+    <edge id="q2" from="8" to="4" name="vertical" priority="1">
         <lane id="q2_0" index="0" speed="10.00" length="90.50" shape="-1.65,195.25 -1.65,104.75"/>
     </edge>
-    <edge id="r" from="5" to="9" priority="1">
+    <edge id="r" from="5" to="9" name="vertical" priority="1">
         <lane id="r_0" index="0" speed="10.00" length="90.50" shape="101.65,104.75 101.65,195.25"/>
     </edge>
-    <edge id="r2" from="9" to="5" priority="1">
+    <edge id="r2" from="9" to="5" name="vertical" priority="1">
         <lane id="r2_0" index="0" speed="10.00" length="90.50" shape="98.35,195.25 98.35,104.75"/>
     </edge>
-    <edge id="s" from="6" to="10" priority="1">
+    <edge id="s" from="6" to="10" name="vertical" priority="1">
         <lane id="s_0" index="0" speed="10.00" length="90.50" shape="201.65,104.75 201.65,195.25"/>
     </edge>
-    <edge id="s2" from="10" to="6" priority="1">
+    <edge id="s2" from="10" to="6" name="vertical" priority="1">
         <lane id="s2_0" index="0" speed="10.00" length="90.50" shape="198.35,195.25 198.35,104.75"/>
     </edge>
-    <edge id="t" from="7" to="11" priority="1">
+    <edge id="t" from="7" to="11" name="vertical" priority="1">
         <lane id="t_0" index="0" speed="10.00" length="90.50" shape="301.65,104.75 301.65,195.25"/>
     </edge>
-    <edge id="t2" from="11" to="7" priority="1">
+    <edge id="t2" from="11" to="7" name="vertical" priority="1">
         <lane id="t2_0" index="0" speed="10.00" length="90.50" shape="298.35,195.25 298.35,104.75"/>
     </edge>
-    <edge id="u" from="8" to="12" priority="1">
+    <edge id="u" from="8" to="12" name="vertical" priority="1">
         <lane id="u_0" index="0" speed="10.00" length="92.00" shape="1.65,204.75 1.65,296.75"/>
     </edge>
-    <edge id="u2" from="12" to="8" priority="1">
+    <edge id="u2" from="12" to="8" name="vertical" priority="1">
         <lane id="u2_0" index="0" speed="10.00" length="92.00" shape="-1.65,296.75 -1.65,204.75"/>
     </edge>
-    <edge id="v" from="9" to="13" priority="1">
+    <edge id="v" from="9" to="13" name="vertical" priority="1">
         <lane id="v_0" index="0" speed="10.00" length="90.50" shape="101.65,204.75 101.65,295.25"/>
     </edge>
-    <edge id="v2" from="13" to="9" priority="1">
+    <edge id="v2" from="13" to="9" name="vertical" priority="1">
         <lane id="v2_0" index="0" speed="10.00" length="90.50" shape="98.35,295.25 98.35,204.75"/>
     </edge>
-    <edge id="w" from="10" to="14" priority="1">
+    <edge id="w" from="10" to="14" name="vertical" priority="1">
         <lane id="w_0" index="0" speed="10.00" length="90.50" shape="201.65,204.75 201.65,295.25"/>
     </edge>
-    <edge id="w2" from="14" to="10" priority="1">
+    <edge id="w2" from="14" to="10" name="vertical" priority="1">
         <lane id="w2_0" index="0" speed="10.00" length="90.50" shape="198.35,295.25 198.35,204.75"/>
     </edge>
-    <edge id="y" from="11" to="15" priority="1">
+    <edge id="y" from="11" to="15" name="vertical" priority="1">
         <lane id="y_0" index="0" speed="10.00" length="92.00" shape="301.65,204.75 301.65,296.75"/>
     </edge>
-    <edge id="y2" from="15" to="11" priority="1">
+    <edge id="y2" from="15" to="11" name="vertical" priority="1">
         <lane id="y2_0" index="0" speed="10.00" length="92.00" shape="298.35,296.75 298.35,204.75"/>
     </edge>
 
