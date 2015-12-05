@@ -1,12 +1,4 @@
 package intelligent_traffic_lights;
-
-/**
- * 		Funcionamento deste agente:
- * 			1-> verifica qual a direção que tem mais carros
- * 			2-> fica verde para essa direção
- * 			3-> espera 5s e volta a 1
- */
-
 import trasmapi.genAPI.exceptions.UnimplementedMethod;
 import jade.core.Agent;
 import jade.core.behaviours.SimpleBehaviour;
@@ -15,16 +7,12 @@ import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 
-public class TlBasicAgent extends TlAgent{
+public class TlTimerAgent extends TlAgent{
 	private static final long serialVersionUID = 1L;
-	public TlBasicAgent(String tlID) {
+	public TlTimerAgent(String tlID) {
 		super(tlID);
 	}
 
-
-	/* (non-Javadoc)
-	 * @see jade.core.Agent#setup()
-	 */
 	@Override
 	protected void setup() {
 		DFAgentDescription ad = new DFAgentDescription();
@@ -37,7 +25,7 @@ public class TlBasicAgent extends TlAgent{
 
 		sd.setType("TrafficLight");
 		System.out.println("Tipo: "+sd.getType()+"\n\n\n");
-		addBehaviour(new TlBasicBehaviour(this));
+		addBehaviour(new TlTimerBehaviour(this));
 		ad.addServices(sd); 
 
 		try {
@@ -57,42 +45,30 @@ public class TlBasicAgent extends TlAgent{
 		super.takeDown();
 	}
 
-	
+
 	// ==================================================================================
 	//    NestedClass
 	// ==================================================================================
-	public class TlBasicBehaviour extends SimpleBehaviour {
+	public class TlTimerBehaviour extends SimpleBehaviour {
 		private static final long serialVersionUID = 1L;
 
-		public TlBasicBehaviour(Agent a) {
+		public TlTimerBehaviour(Agent a) {
 			super(a);
 		}
 
 		@Override
 		public void action() {
 			try {
-				int diff=verticalHasMoreCars(); 
-				if(diff>0){	
-//					if(tl.getId().equals("5")){
-//						System.out.println("VERTICAL");
-//					}
-					if(!tl.getState().equals(verticalGreen))
-						changeState(horizontalYellow, verticalGreen);
-				}else if(diff<0){
-//					if(tl.getId().equals("5")){
-//						System.out.println("HORIZONTAL");
-//					}
-					if(!tl.getState().equals(horizontalGreen))
-						changeState(verticalYellow,horizontalGreen);
-				}
+				if(!tl.getState().equals(verticalGreen)){
+					changeState(horizontalYellow, verticalGreen);
+				}else if(!tl.getState().equals(horizontalGreen))
+					changeState(verticalYellow,horizontalGreen);
 			} catch (UnimplementedMethod e) {
 				e.printStackTrace();
 			}
 			try {
-				Thread.sleep(5000);
-			} catch (InterruptedException e) {
-				//e.printStackTrace();
-			}
+				Thread.sleep(SLEEP_TIME);
+			} catch (InterruptedException e) {}
 		}
 
 		@Override

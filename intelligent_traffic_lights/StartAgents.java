@@ -3,7 +3,7 @@ package intelligent_traffic_lights;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Random;
 import jade.BootProfileImpl;
 import jade.core.ProfileImpl;
 import jade.core.Runtime;
@@ -11,37 +11,42 @@ import jade.wrapper.ContainerController;
 import jade.wrapper.StaleProxyException;
 import trasmapi.genAPI.Simulator;
 import trasmapi.genAPI.TraSMAPI;
+import trasmapi.genAPI.Vehicle;
 import trasmapi.genAPI.exceptions.TimeoutException;
 import trasmapi.genAPI.exceptions.UnimplementedMethod;
 import trasmapi.sumo.Sumo;
 import trasmapi.sumo.SumoCom;
 import trasmapi.sumo.SumoTrafficLight;
+import trasmapi.sumo.SumoVehicle;
 
 public class StartAgents {
 
-
+	Object lock = new Object();
 	static boolean JADE_GUI = true;
 	private static ProfileImpl profile;
 	private static ContainerController mainContainer;
+	private static int  numCarrros = 350;
+	public static Random rand;
+	public StartAgents(String mode, boolean flows){	
+		rand = new Random(50);
+		if(JADE_GUI){
+			List<String> params = new ArrayList<String>();
+			params.add("-gui");
+			profile = new BootProfileImpl(params.toArray(new String[0]));
+		} else
+			profile = new ProfileImpl();
 
-	public StartAgents(String mode){	
-		if(!mode.equals("justSumo")){
-			if(JADE_GUI){
-				List<String> params = new ArrayList<String>();
-				params.add("-gui");
-				profile = new BootProfileImpl(params.toArray(new String[0]));
-			} else
-				profile = new ProfileImpl();
+		Runtime rt = Runtime.instance();
+		mainContainer = rt.createMainContainer(profile);
 
-			Runtime rt = Runtime.instance();
-			mainContainer = rt.createMainContainer(profile);
-		}
 		TraSMAPI api = new TraSMAPI(); 
 
 		//Create SUMO
 		Simulator sumo = new Sumo("guisim");
 		List<String> params = new ArrayList<String>();
-		params.add("-c=bin\\map\\hello.sumo.cfg");
+		if(flows)
+			params.add("-c=bin\\map\\hello.sumo.cfg");
+		else params.add("-c=bin\\map\\helloRandom.sumo.cfg");
 		try {
 			sumo.addParameters(params);
 			sumo.addConnections("localhost", 8820);
@@ -52,7 +57,7 @@ public class StartAgents {
 
 		//Add Sumo to TraSMAPI
 		api.addSimulator(sumo);
-		
+
 
 		//Launch and Connect all the simulators added
 		try {
@@ -76,31 +81,77 @@ public class StartAgents {
 
 		for (String id : tlIds) {
 			try {
-				if(mode.equals("basicAgents")){
-					mainContainer.acceptNewAgent("BasicTL#"+id, new TlBasicAgent(id)).start();
+				if(mode.equals("temporizador")){
+					mainContainer.acceptNewAgent("TimerTL#"+id, new TlTimerAgent(id)).start();
+				}else if(mode.equals("basicAgents")){
+					mainContainer.acceptNewAgent("ReactTL#"+id, new TlReactiveAgent(id)).start();
 				}else if(mode.equals("proAgents")){
-					mainContainer.acceptNewAgent("ProTL#"+id, new TlProAgent(id)).start();
+					mainContainer.acceptNewAgent("DelivTL#"+id, new TlDeliberativeAgent(id)).start();
 				}
 			} catch (StaleProxyException e) {
 				e.printStackTrace();
 			}
 		}
+		SumoCom.createAllRoutes();
 		Thread t = new Thread(){
 			public void run(){
 				while(true){
 					try {
-						if(!api.simulationStep(0) || SumoCom.getAllVehiclesIds().size()<=0){
-							//sumo.close();
-							break;
+						synchronized (lock) {
+							if(!api.simulationStep(0) || (SumoCom.getAllVehiclesIds().size()<=0 && (flows ||(!flows && numCarrros<=0)))){
+								break;
+							}
 						}
 					} catch (UnimplementedMethod e) {
 						e.printStackTrace();
-					//} catch (IOException e) {
-					//	e.printStackTrace();
 					}
 				}
 			}
 		};
 		t.start();
+		if(!flows){
+			while(true){
+				try {
+					if(numCarrros>0){
+						/*//carros comecam e acabam rotas sempre nas estradas laterais ao mapa
+						String[] s = new String[] {"a","m","n","j","l2","y2","p","c2"};
+						String[] f = new String[] {"a2","m2","c","p2","y","l","j2","n2"};
+
+						String origin = s[rand.nextInt(s.length)];
+						String destination = f[rand.nextInt(f.length)];
+						 */
+						///*// carros comecam e acabam em qualquer edge
+						String origin= SumoCom.edgesIDs.get(rand.nextInt(SumoCom.edgesIDs.size()));
+						String destination="";
+						do{
+							destination = SumoCom.edgesIDs.get(rand.nextInt(SumoCom.edgesIDs.size())); 
+						}while(origin.equals(destination));
+						///*
+
+						String vehicleType = SumoCom.vehicleTypesIDs.get(1);
+						String routeId = SumoCom.getRouteId(origin, null);
+						int departureTime = 0;
+						double departPosition = 0;
+						double departSpeed = 0;
+						byte departLane = 0;
+
+
+						Vehicle vehicle = new SumoVehicle(numCarrros, vehicleType, routeId, departureTime, departPosition, departSpeed, departLane);
+
+						SumoCom.addVehicle((SumoVehicle)vehicle);
+
+						SumoCom.addVehicleToSimulation((SumoVehicle)vehicle);
+
+						vehicle.changeTarget(destination);
+						numCarrros--;
+					}
+					Thread.sleep(150);
+				} catch (UnimplementedMethod e) {
+					e.printStackTrace();
+				} catch (InterruptedException e) {
+
+				}
+			}
+		}
 	}	
 }

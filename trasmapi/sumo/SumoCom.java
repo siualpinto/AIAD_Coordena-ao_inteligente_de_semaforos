@@ -23,6 +23,7 @@ import trasmapi.sumo.protocol.Variable;
 
 public class SumoCom {	
 
+	static Object lock = new Object();
 	private boolean debug = false;
 	private boolean debug1 = false;
 
@@ -327,14 +328,15 @@ public class SumoCom {
 	private void loadArrivedVehicles(ArrayList<String> arrivedVehiclesIDs) {
 
 		//System.out.println("Arrived : " + arrivedVehiclesIDs);
-
-		for(String s: arrivedVehiclesIDs){
-			for(SumoVehicle v: vehicles)
-				if(v.id.equals(s)){
-					v.arrived = true;
-					v.alive = false;
-					v.arrivalTime = currentSimStep;
-				}
+		synchronized (lock) {
+			for(String s: arrivedVehiclesIDs){
+				for(SumoVehicle v: vehicles)
+					if(v.id.equals(s)){
+						v.arrived = true;
+						v.alive = false;
+						v.arrivalTime = currentSimStep;
+					}
+			}
 		}
 	}
 
@@ -364,7 +366,7 @@ public class SumoCom {
 
 		return new ResponseMessage(in);
 	}
-	
+
 	public static ArrayList<String> getAllEdgesIds() {
 
 		Command cmd = new Command(Constants.CMD_GET_EDGE_VARIABLE);
@@ -383,7 +385,7 @@ public class SumoCom {
 			Content content = rspMsg.validate((byte)Constants.CMD_GET_EDGE_VARIABLE,  (byte)Constants.RESPONSE_GET_EDGE_VARIABLE,
 					(byte)Constants.ID_LIST,  (byte)Constants.TYPE_STRINGLIST);
 
-			
+
 			if(rspMsg.status.getResult() == 0){
 				edgesIDs = content.getStringList();
 				return edgesIDs;
@@ -397,7 +399,7 @@ public class SumoCom {
 
 		return null;
 	}
-	
+
 	public static ArrayList<String> getAllVehiclesIds() {
 
 		Command cmd = new Command(Constants.CMD_GET_VEHICLE_VARIABLE);
@@ -532,7 +534,7 @@ public class SumoCom {
 		simStep(i);
 
 		loadRoutes();
-		
+
 		vehicleTypesIDs = getAllVehiclesTypesIds();
 
 		subscribeAll();
@@ -812,8 +814,7 @@ public class SumoCom {
 
 			if(rspMsg.status.getResult() != 0)
 				System.out.println("ADD VEHICLE ERROR!");
-			else
-				System.out.println("ADDED VEHICLE!");
+			//else				System.out.println("ADDED VEHICLE!");
 
 
 		} catch (IOException e) {
@@ -825,32 +826,35 @@ public class SumoCom {
 
 	public synchronized static void addVehicle(SumoVehicle vehicle) {
 
-		vehicles.add(vehicle);
+		synchronized (lock) {
+			vehicles.add(vehicle);
+		}
+
 	}
 
 	//Transforms all edges in a route, so that every departure Edge(in a route) is a known route.
 	public static void createAllRoutes() {
 
 		getAllEdgesIds();
-		
+
 		removeInternalEdges();
-		
+
 		System.out.println(edgesIDs);
-		
+
 		int routeId = 1;
 		for(String edgeId: edgesIDs){
-			
+
 			SumoRoute route = new SumoRoute(routeId+"");
 			route.edges.add(new SumoEdge(edgeId));
-			
+
 			route.addRoute();
-			
+
 			routeId++;
 		}
-		
+
 		loadRoutes();
 		//System.out.println(edgesIds.size());
-	//	System.out.println(routes.size());
+		//	System.out.println(routes.size());
 	}
 
 	private static void removeInternalEdges() {
@@ -860,7 +864,7 @@ public class SumoCom {
 		for(String s: edgesIDs)
 			if(!s.contains(":"))
 				newEdges.add(s);
-		
+
 		edgesIDs = newEdges;
 	}
 

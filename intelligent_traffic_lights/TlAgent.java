@@ -28,8 +28,9 @@ import trasmapi.sumo.SumoVehicle;
 
 public class TlAgent extends Agent {
 	private static final long serialVersionUID = 1L;
-	public static int MAX_CARS = 12;
 	public static double STOP_SPEED = 0.5;
+	public static int SLEEP_TIME = 5000;
+	public static String DEBUG_SEM = "6";
 	private String id;
 	public TrafficLight tl;
 	public ArrayList<String> controlledLanes;
@@ -107,7 +108,7 @@ public class TlAgent extends Agent {
 		}
 	}
 
-	
+
 	/**
 	 * Troca a direção que está verde
 	 * @param yellow
@@ -129,17 +130,10 @@ public class TlAgent extends Agent {
 	 * Obter a direção que tem mais carros
 	 * @return retorna true se tem mais carros na vertical do que na horizontal
 	 */
-	public int verticalHasMoreCars(){
-		
-//		int sumHorizontal=0,sumVertical=0;
+	public int[] verticalHasMoreCars(){
+
 		int sumHorizontalParados=0,sumVerticalParados=0;
 		for (int i : verticalIndex) {
-//			sumVertical+=controlledEdges.get(i).getNumVehicles();
-//			
-//			if(controlledEdges.get(i).getNumVehicles() != controlledEdges.get(i).vehiclesList().size() ){
-//				System.err.println("Num carros errado");
-//			}
-			
 			for(SumoVehicle c : controlledEdges.get(i).vehiclesList()){
 				if(c.getSpeed() <= STOP_SPEED){
 					sumVerticalParados++;
@@ -147,23 +141,15 @@ public class TlAgent extends Agent {
 			}
 		}
 		for (int i : horizontalIndex) {
-//			sumHorizontal+=controlledEdges.get(i).getNumVehicles();
-//			
-//			if(controlledEdges.get(i).getNumVehicles() != controlledEdges.get(i).vehiclesList().size() ){
-//				System.err.println("Num carros errado");
-//			}
-
 			for(SumoVehicle c : controlledEdges.get(i).vehiclesList()){
-//				if(tl.getId().equals("5"))
-//					System.out.println(c.getSpeed());
 				if(c.getSpeed() <= STOP_SPEED){
 					sumHorizontalParados++;
 				}
 			}
 		}
-//		if(tl.getId().equals("5"))
-//			System.out.println("Semaforo : "+tl.getId()+" Vertical: "+sumVerticalParados+" H:"+sumHorizontalParados);
-		return (sumVerticalParados-sumHorizontalParados);
+
+		//print("carros H:" +sumHorizontalParados+ "V: "+sumVerticalParados);
+		return new int[] {sumVerticalParados,sumHorizontalParados};
 	}
 
 	public String stringOfSize(int size, char ch)
@@ -171,5 +157,10 @@ public class TlAgent extends Agent {
 		final char[] array = new char[size];
 		Arrays.fill(array, ch);
 		return new String(array);
+	}
+	protected void print(String s){
+		if(tl.getId().equals(DEBUG_SEM)){
+			System.out.println("Agent=>  "+tl.getId()+" =>  "+s);
+		}
 	}
 }
