@@ -34,8 +34,9 @@ public class TlDeliberativeAgent extends TlAgent{
 			verticalIndex=tmpA;
 		}
 		try {
-			tl.setState(horizontalGreen);
-			direcaoEscolhida="HORIZONTAL";
+			if(tl.getState().equals(horizontalGreen)){
+				direcaoEscolhida="HORIZONTAL";
+			}else direcaoEscolhida="VERTICAL";			
 		} catch (UnimplementedMethod e1) {
 			e1.printStackTrace();
 		}
@@ -133,7 +134,7 @@ public class TlDeliberativeAgent extends TlAgent{
 			}else if(diff<0){
 				direcaoEscolhida="HORIZONTAL";
 			}
-			
+
 			print("Tenho mais Carros em: "+direcaoEscolhida);
 
 			for(DFAgentDescription a : vizinhosHorizontal){
@@ -202,7 +203,7 @@ public class TlDeliberativeAgent extends TlAgent{
 				horizontal++;
 			else if(direcaoEscolhida.equals("VERTICAL"))
 				vertical++;
-		
+
 			if(horizontal==vertical){
 				direcaoFinal=direcaoEscolhida;
 			}else if(horizontal>vertical){
@@ -210,7 +211,7 @@ public class TlDeliberativeAgent extends TlAgent{
 			}else if(horizontal<vertical){
 				direcaoFinal="VERTICAL";
 			}
-			
+
 			print("RESULTADO: "+direcaoFinal);
 			try {
 				if(direcaoFinal.equals("HORIZONTAL")){
