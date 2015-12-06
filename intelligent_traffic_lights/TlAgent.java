@@ -17,6 +17,7 @@ package intelligent_traffic_lights;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
+import java.util.Random;
 import java.util.Set;
 
 import jade.core.Agent;
@@ -35,6 +36,7 @@ public class TlAgent extends Agent {
 	public TrafficLight tl;
 	public ArrayList<String> controlledLanes;
 	public ArrayList<SumoEdge> controlledEdges, neighborEdges;
+	private Random r;
 	/**
 	 * Atenção que o uso de vertical e horizontal no nome das seguintes variáveis é só para orientação
 	 * porque na realidade as direções podem estar trocadas, todo depende do numero de estradas que cruzam no semaforo
@@ -47,7 +49,7 @@ public class TlAgent extends Agent {
 	public TlAgent(String tlID) {
 		super();
 		try {
-
+			r = new Random(Integer.parseInt(tlID));
 			System.out.println("TlAgent id: "+this.id);
 
 			tl = new SumoTrafficLight(tlID);
@@ -100,8 +102,15 @@ public class TlAgent extends Agent {
 					neighborEdges.add(new SumoEdge(edge.substring(0, 1)));
 				}else neighborEdges.add(new SumoEdge(edge+"2"));
 			}
+			int dir = r.nextInt(3);
 
-			tl.setState(horizontalGreen);
+			if(dir==1){
+				tl.setState(horizontalGreen);
+				//System.out.println("Comecei h");
+			}else {
+				tl.setState(verticalGreen);
+				//System.out.println("Comecei v");
+			}
 
 		} catch (UnimplementedMethod e) {
 			e.printStackTrace();
