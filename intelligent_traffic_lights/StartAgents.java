@@ -20,14 +20,13 @@ import trasmapi.sumo.SumoTrafficLight;
 import trasmapi.sumo.SumoVehicle;
 
 public class StartAgents {
-
-	Object lock = new Object();
 	static boolean JADE_GUI = true;
 	private static ProfileImpl profile;
 	private static ContainerController mainContainer;
-	private static int  numCarrros = 350;
+	private static int  numCarrros;
 	public static Random rand;
 	public StartAgents(String mode, boolean flows){	
+		numCarrros=350;
 		rand = new Random(50);
 		if(JADE_GUI){
 			List<String> params = new ArrayList<String>();
@@ -97,12 +96,12 @@ public class StartAgents {
 			public void run(){
 				while(true){
 					try {
-						synchronized (lock) {
-							if(!api.simulationStep(0) || (SumoCom.getAllVehiclesIds().size()<=0 && (flows ||(!flows && numCarrros<=0)))){
-								break;
-							}
+						if(!api.simulationStep(0) || (SumoCom.getAllVehiclesIds().size()<=0 && (flows ||(!flows && numCarrros<=0)))){
+							mainContainer.kill();
+							System.out.println("Simulation over in: "+SumoCom.getCurrentSimStep());
+							break;
 						}
-					} catch (UnimplementedMethod e) {
+					} catch (StaleProxyException | UnimplementedMethod e) {
 						e.printStackTrace();
 					}
 				}
@@ -110,48 +109,52 @@ public class StartAgents {
 		};
 		t.start();
 		if(!flows){
-			while(true){
-				try {
-					if(numCarrros>0){
-						/*//carros comecam e acabam rotas sempre nas estradas laterais ao mapa
-						String[] s = new String[] {"a","m","n","j","l2","y2","p","c2"};
-						String[] f = new String[] {"a2","m2","c","p2","y","l","j2","n2"};
+			Thread carros = new Thread(){
+				public void run(){
+					while(numCarrros>0){
+						try {
+							/*
+							//carros comecam e acabam rotas sempre nas estradas laterais ao mapa
+							String[] s = new String[] {"a","m","n","j","l2","y2","p","c2"};
+							String[] f = new String[] {"a2","m2","c","p2","y","l","j2","n2"};
 
-						String origin = s[rand.nextInt(s.length)];
-						String destination = f[rand.nextInt(f.length)];
-						 */
-						///*// carros comecam e acabam em qualquer edge
-						String origin= SumoCom.edgesIDs.get(rand.nextInt(SumoCom.edgesIDs.size()));
-						String destination="";
-						do{
-							destination = SumoCom.edgesIDs.get(rand.nextInt(SumoCom.edgesIDs.size())); 
-						}while(origin.equals(destination));
-						///*
-
-						String vehicleType = SumoCom.vehicleTypesIDs.get(1);
-						String routeId = SumoCom.getRouteId(origin, null);
-						int departureTime = 0;
-						double departPosition = 0;
-						double departSpeed = 0;
-						byte departLane = 0;
+							String origin = s[rand.nextInt(s.length)];
+							String destination = f[rand.nextInt(f.length)];
+							 */
+							// carros comecam e acabam em qualquer edge
+							String origin= SumoCom.edgesIDs.get(rand.nextInt(SumoCom.edgesIDs.size()));
+							String destination="";
+							do{
+								destination = SumoCom.edgesIDs.get(rand.nextInt(SumoCom.edgesIDs.size())); 
+							}while(origin.equals(destination));
 
 
-						Vehicle vehicle = new SumoVehicle(numCarrros, vehicleType, routeId, departureTime, departPosition, departSpeed, departLane);
+							String vehicleType = SumoCom.vehicleTypesIDs.get(1);
+							String routeId = SumoCom.getRouteId(origin, null);
+							int departureTime = 0;
+							double departPosition = 0;
+							double departSpeed = 0;
+							byte departLane = 0;
 
-						SumoCom.addVehicle((SumoVehicle)vehicle);
+							//System.out.println("Carro: "+numCarrros+" s: "+origin+" f: "+destination);
+							Vehicle vehicle = new SumoVehicle(numCarrros, vehicleType, routeId, departureTime, departPosition, departSpeed, departLane);
 
-						SumoCom.addVehicleToSimulation((SumoVehicle)vehicle);
+							SumoCom.addVehicle((SumoVehicle)vehicle);
 
-						vehicle.changeTarget(destination);
-						numCarrros--;
+							SumoCom.addVehicleToSimulation((SumoVehicle)vehicle);
+
+							vehicle.changeTarget(destination);
+							numCarrros--;
+							Thread.sleep(150);
+						} catch (UnimplementedMethod e) {
+							e.printStackTrace();
+						} catch (InterruptedException e) {
+
+						}
 					}
-					Thread.sleep(150);
-				} catch (UnimplementedMethod e) {
-					e.printStackTrace();
-				} catch (InterruptedException e) {
-
 				}
-			}
+			};
+			carros.start();
 		}
 	}	
 }

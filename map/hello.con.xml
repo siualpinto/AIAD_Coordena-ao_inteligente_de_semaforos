@@ -1,29 +1,108 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <connections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
 
-	<!-- semaforo 5-->
-	<!--<connection from="d" to="e"/>
-	<connection from="e2" to="d2"/>
-	<connection from="n" to="r"/>
-	<connection from="r2" to="n2"/>-->
-
-	<!-- semaforo 6-->
-	<!--<connection from="e" to="f"/>
-	<connection from="f2" to="e2"/>
-	<connection from="o" to="s"/>
-	<connection from="s2" to="o2"/>-->
-
-	<!-- semaforo 9-->
-	<!--<connection from="g" to="h"/>
-	<connection from="h2" to="g2"/>
-	<connection from="r" to="v"/>
-	<connection from="v2" to="r2"/>-->
-
-	<!-- semaforo 10-->
-	<!--<connection from="s" to="w"/>
-	<connection from="w2" to="s2"/>
-	<connection from="h" to="i"/>
-	<connection from="i2" to="h2"/>-->
-
-
+	<connection from="a" to="b"   />
+    <connection from="a" to="n"   />
+    <connection from="a2" to="m"   />
+    <connection from="b" to="c"   />
+    <connection from="b" to="o"   />
+    <connection from="b2" to="n"   />
+    <connection from="b2" to="a2"   />
+    <connection from="c" to="p"   />
+    <connection from="c2" to="o"   />
+    <connection from="c2" to="b2"   />
+    <connection from="d" to="n2"   />
+    <connection from="d" to="e"   />
+    <connection from="d" to="r"   />
+    <connection from="d2" to="q"   />
+    <connection from="d2" to="m2"   />
+    <connection from="e" to="o2"   />
+    <connection from="e" to="f"   />
+    <connection from="e" to="s"   />
+    <connection from="e2" to="r"   />
+    <connection from="e2" to="d2"   />
+    <connection from="e2" to="n2"   />
+    <connection from="f" to="p2"   />
+    <connection from="f" to="t"   />
+    <connection from="f2" to="s"   />
+    <connection from="f2" to="e2"   />
+    <connection from="f2" to="o2"   />
+    <connection from="g" to="r2"   />
+    <connection from="g" to="h"   />
+    <connection from="g" to="v"   />
+    <connection from="g2" to="u"   />
+    <connection from="g2" to="q2"   />
+    <connection from="h" to="s2"   />
+    <connection from="h" to="i"   />
+    <connection from="h" to="w"   />
+    <connection from="h2" to="v"   />
+    <connection from="h2" to="g2"   />
+    <connection from="h2" to="r2"   />
+    <connection from="i" to="t2"   />
+    <connection from="i" to="y"   />
+    <connection from="i2" to="w"   />
+    <connection from="i2" to="h2"   />
+    <connection from="i2" to="s2"   />
+    <connection from="j" to="v2"   />
+    <connection from="j" to="k"   />
+    <connection from="j2" to="u2"   />
+    <connection from="k" to="w2"   />
+    <connection from="k" to="l"   />
+    <connection from="k2" to="j2"   />
+    <connection from="k2" to="v2"   />
+    <connection from="l" to="y2"   />
+    <connection from="l2" to="k2"   />
+    <connection from="l2" to="w2"   />
+    <connection from="m" to="d"   />
+    <connection from="m" to="q"   />
+    <connection from="m2" to="a"   />
+    <connection from="n" to="e"   />
+    <connection from="n" to="r"   />
+    <connection from="n" to="d2"   />
+    <connection from="n2" to="a2"   />
+    <connection from="n2" to="b"   />
+    <connection from="o" to="f"   />
+    <connection from="o" to="s"   />
+    <connection from="o" to="e2"   />
+    <connection from="o2" to="b2"   />
+    <connection from="o2" to="c"   />
+    <connection from="p" to="t"   />
+    <connection from="p" to="f2"   />
+    <connection from="p2" to="c2"   />
+    <connection from="q" to="g"   />
+    <connection from="q" to="u"   />
+    <connection from="q2" to="m2"   />
+    <connection from="q2" to="d"   />
+    <connection from="r" to="h"   />
+    <connection from="r" to="v"   />
+    <connection from="r" to="g2"   />
+    <connection from="r2" to="d2"   />
+    <connection from="r2" to="n2"   />
+    <connection from="r2" to="e"   />
+    <connection from="s" to="i"   />
+    <connection from="s" to="w"   />
+    <connection from="s" to="h2"   />
+    <connection from="s2" to="e2"   />
+    <connection from="s2" to="o2"   />
+    <connection from="s2" to="f"   />
+    <connection from="t" to="y"   />
+    <connection from="t" to="i2"   />
+    <connection from="t2" to="f2"   />
+    <connection from="t2" to="p2"   />
+    <connection from="u" to="j"   />
+    <connection from="u2" to="q2"   />
+    <connection from="u2" to="g"   />
+    <connection from="v" to="k"   />
+    <connection from="v" to="j2"   />
+    <connection from="v2" to="g2"   />
+    <connection from="v2" to="r2"   />
+    <connection from="v2" to="h"   />
+    <connection from="w" to="l"   />
+    <connection from="w" to="k2"   />
+    <connection from="w2" to="h2"   />
+    <connection from="w2" to="s2"   />
+    <connection from="w2" to="i"   />
+    <connection from="y" to="l2"   />
+    <connection from="y2" to="i2"   />
+    <connection from="y2" to="t2"   />
 </connections>

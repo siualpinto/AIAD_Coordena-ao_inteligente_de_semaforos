@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12/02/15 11:20:17 by SUMO duarouter Version 0.24.0
+<!-- generated on 12/06/15 20:10:47 by SUMO duarouter Version 0.24.0
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
@@ -28,7 +28,7 @@
         <route edges="l2 w2 s2 o2 b2 a2"/>
     </vehicle>
     <vehicle id="4.0" depart="0.00">
-        <route edges="f t i2 h2 g2 g"/>
+        <route edges="f t i2 s2 e2 d2 q g"/>
     </vehicle>
     <vehicle id="0.1" depart="0.86">
         <route edges="a n r v k l"/>
@@ -37,7 +37,7 @@
         <route edges="j v2 r2 n2 b c"/>
     </vehicle>
     <vehicle id="4.1" depart="1.50">
-        <route edges="f t i2 h2 g2 g"/>
+        <route edges="f t i2 s2 e2 d2 q g"/>
     </vehicle>
     <vehicle id="0.2" depart="1.71">
         <route edges="a n r v k l"/>
@@ -52,7 +52,7 @@
         <route edges="a n r v k l"/>
     </vehicle>
     <vehicle id="4.2" depart="3.00">
-        <route edges="f t i2 h2 g2 g"/>
+        <route edges="f t i2 s2 e2 d2 q g"/>
     </vehicle>
     <vehicle id="0.4" depart="3.43">
         <route edges="a n r v k l"/>
@@ -67,7 +67,7 @@
         <route edges="a n r v k l"/>
     </vehicle>
     <vehicle id="4.3" depart="4.50">
-        <route edges="f t i2 h2 g2 g"/>
+        <route edges="f t i2 s2 e2 d2 q g"/>
     </vehicle>
     <vehicle id="1.4" depart="4.80">
         <route edges="j v2 r2 n2 b c"/>
@@ -85,7 +85,7 @@
         <route edges="l2 w2 s2 o2 b2 a2"/>
     </vehicle>
     <vehicle id="4.4" depart="6.00">
-        <route edges="f t i2 h2 g2 g"/>
+        <route edges="f t i2 s2 e2 d2 q g"/>
     </vehicle>
     <vehicle id="0.8" depart="6.86">
         <route edges="a n r v k l"/>
@@ -94,7 +94,7 @@
         <route edges="j v2 r2 n2 b c"/>
     </vehicle>
     <vehicle id="4.5" depart="7.50">
-        <route edges="f t i2 h2 g2 g"/>
+        <route edges="f t i2 s2 e2 d2 q g"/>
     </vehicle>
     <vehicle id="0.9" depart="7.71">
         <route edges="a n r v k l"/>
@@ -109,7 +109,7 @@
         <route edges="a n r v k l"/>
     </vehicle>
     <vehicle id="4.6" depart="9.00">
-        <route edges="f t i2 h2 g2 g"/>
+        <route edges="f t i2 s2 e2 d2 q g"/>
     </vehicle>
     <vehicle id="0.11" depart="9.43">
         <route edges="a n r v k l"/>
@@ -121,13 +121,13 @@
         <route edges="l2 w2 s2 o2 b2 a2"/>
     </vehicle>
     <vehicle id="3.0" depart="10.00">
-        <route edges="b2 n r v k k2"/>
+        <route edges="b2 n r h w k2"/>
     </vehicle>
     <vehicle id="0.12" depart="10.28">
         <route edges="a n r v k l"/>
     </vehicle>
     <vehicle id="4.7" depart="10.50">
-        <route edges="f t i2 h2 g2 g"/>
+        <route edges="f t i2 s2 e2 d2 q g"/>
     </vehicle>
     <vehicle id="1.9" depart="10.80">
         <route edges="j v2 r2 n2 b c"/>
@@ -145,7 +145,7 @@
         <route edges="l2 w2 s2 o2 b2 a2"/>
     </vehicle>
     <vehicle id="4.8" depart="12.00">
-        <route edges="f t i2 h2 g2 g"/>
+        <route edges="f t i2 s2 e2 d2 q g"/>
     </vehicle>
     <vehicle id="0.15" depart="12.86">
         <route edges="a n r v k l"/>
@@ -154,7 +154,7 @@
         <route edges="j v2 r2 n2 b c"/>
     </vehicle>
     <vehicle id="4.9" depart="13.50">
-        <route edges="f t i2 h2 g2 g"/>
+        <route edges="f t i2 s2 e2 d2 q g"/>
     </vehicle>
     <vehicle id="0.16" depart="13.71">
         <route edges="a n r v k l"/>
@@ -169,10 +169,10 @@
         <route edges="a n r v k l"/>
     </vehicle>
     <vehicle id="3.1" depart="15.00">
-        <route edges="b2 n r v k k2"/>
+        <route edges="b2 n r h w k2"/>
     </vehicle>
     <vehicle id="4.10" depart="15.00">
-        <route edges="f t i2 h2 g2 g"/>
+        <route edges="f t i2 s2 e2 d2 q g"/>
     </vehicle>
     <vehicle id="0.18" depart="15.43">
         <route edges="a n r v k l"/>
@@ -187,7 +187,7 @@
         <route edges="a n r v k l"/>
     </vehicle>
     <vehicle id="4.11" depart="16.50">
-        <route edges="f t i2 h2 g2 g"/>
+        <route edges="f t i2 s2 e2 d2 q g"/>
     </vehicle>
     <vehicle id="1.14" depart="16.80">
         <route edges="j v2 r2 n2 b c"/>
@@ -205,7 +205,7 @@
         <route edges="l2 w2 s2 o2 b2 a2"/>
     </vehicle>
     <vehicle id="4.12" depart="18.00">
-        <route edges="f t i2 h2 g2 g"/>
+        <route edges="f t i2 s2 e2 d2 q g"/>
     </vehicle>
     <vehicle id="0.22" depart="18.85">
         <route edges="a n r v k l"/>
@@ -214,7 +214,7 @@
         <route edges="j v2 r2 n2 b c"/>
     </vehicle>
     <vehicle id="4.13" depart="19.50">
-        <route edges="f t i2 h2 g2 g"/>
+        <route edges="f t i2 s2 e2 d2 q g"/>
     </vehicle>
     <vehicle id="0.23" depart="19.71">
         <route edges="a n r v k l"/>
@@ -223,10 +223,10 @@
         <route edges="l2 w2 s2 o2 b2 a2"/>
     </vehicle>
     <vehicle id="3.2" depart="20.00">
-        <route edges="b2 n r v k k2"/>
+        <route edges="b2 n r h w k2"/>
     </vehicle>
     <vehicle id="5.0" depart="20.00">
-        <route edges="g2 q2 d e f f2"/>
+        <route edges="g2 q2 d r h i t2 f2"/>
     </vehicle>
     <vehicle id="1.17" depart="20.40">
         <route edges="j v2 r2 n2 b c"/>
@@ -235,7 +235,7 @@
         <route edges="a n r v k l"/>
     </vehicle>
     <vehicle id="4.14" depart="21.00">
-        <route edges="f t i2 h2 g2 g"/>
+        <route edges="f t i2 s2 e2 d2 q g"/>
     </vehicle>
     <vehicle id="0.25" depart="21.43">
         <route edges="a n r v k l"/>
@@ -247,13 +247,13 @@
         <route edges="l2 w2 s2 o2 b2 a2"/>
     </vehicle>
     <vehicle id="5.1" depart="22.00">
-        <route edges="g2 q2 d e f f2"/>
+        <route edges="g2 q2 d r h i t2 f2"/>
     </vehicle>
     <vehicle id="0.26" depart="22.28">
         <route edges="a n r v k l"/>
     </vehicle>
     <vehicle id="4.15" depart="22.50">
-        <route edges="f t i2 h2 g2 g"/>
+        <route edges="f t i2 s2 e2 d2 q g"/>
     </vehicle>
     <vehicle id="1.19" depart="22.80">
         <route edges="j v2 r2 n2 b c"/>
@@ -271,22 +271,22 @@
         <route edges="l2 w2 s2 o2 b2 a2"/>
     </vehicle>
     <vehicle id="4.16" depart="24.00">
-        <route edges="f t i2 h2 g2 g"/>
+        <route edges="f t i2 s2 e2 d2 q g"/>
     </vehicle>
     <vehicle id="5.2" depart="24.00">
-        <route edges="g2 q2 d e f f2"/>
+        <route edges="g2 q2 d r h i t2 f2"/>
     </vehicle>
     <vehicle id="0.29" depart="24.85">
         <route edges="a n r v k l"/>
     </vehicle>
     <vehicle id="3.3" depart="25.00">
-        <route edges="b2 n r v k k2"/>
+        <route edges="b2 n r h w k2"/>
     </vehicle>
     <vehicle id="1.21" depart="25.20">
         <route edges="j v2 r2 n2 b c"/>
     </vehicle>
     <vehicle id="4.17" depart="25.50">
-        <route edges="f t i2 h2 g2 g"/>
+        <route edges="f t i2 s2 e2 d2 q g"/>
     </vehicle>
     <vehicle id="0.30" depart="25.71">
         <route edges="a n r v k l"/>
@@ -295,7 +295,7 @@
         <route edges="l2 w2 s2 o2 b2 a2"/>
     </vehicle>
     <vehicle id="5.3" depart="26.00">
-        <route edges="g2 q2 d e f f2"/>
+        <route edges="g2 q2 d r h i t2 f2"/>
     </vehicle>
     <vehicle id="1.22" depart="26.40">
         <route edges="j v2 r2 n2 b c"/>
@@ -304,7 +304,7 @@
         <route edges="a n r v k l"/>
     </vehicle>
     <vehicle id="4.18" depart="27.00">
-        <route edges="f t i2 h2 g2 g"/>
+        <route edges="f t i2 s2 e2 d2 q g"/>
     </vehicle>
     <vehicle id="0.32" depart="27.42">
         <route edges="a n r v k l"/>
@@ -316,13 +316,13 @@
         <route edges="l2 w2 s2 o2 b2 a2"/>
     </vehicle>
     <vehicle id="5.4" depart="28.00">
-        <route edges="g2 q2 d e f f2"/>
+        <route edges="g2 q2 d r h i t2 f2"/>
     </vehicle>
     <vehicle id="0.33" depart="28.28">
         <route edges="a n r v k l"/>
     </vehicle>
     <vehicle id="4.19" depart="28.50">
-        <route edges="f t i2 h2 g2 g"/>
+        <route edges="f t i2 s2 e2 d2 q g"/>
     </vehicle>
     <vehicle id="1.24" depart="28.80">
         <route edges="j v2 r2 n2 b c"/>
@@ -340,13 +340,13 @@
         <route edges="l2 w2 s2 o2 b2 a2"/>
     </vehicle>
     <vehicle id="3.4" depart="30.00">
-        <route edges="b2 n r v k k2"/>
+        <route edges="b2 n r h w k2"/>
     </vehicle>
     <vehicle id="4.20" depart="30.00">
-        <route edges="f t i2 h2 g2 g"/>
+        <route edges="f t i2 s2 e2 d2 q g"/>
     </vehicle>
     <vehicle id="5.5" depart="30.00">
-        <route edges="g2 q2 d e f f2"/>
+        <route edges="g2 q2 d r h i t2 f2"/>
     </vehicle>
     <vehicle id="0.36" depart="30.85">
         <route edges="a n r v k l"/>
@@ -355,7 +355,7 @@
         <route edges="j v2 r2 n2 b c"/>
     </vehicle>
     <vehicle id="4.21" depart="31.50">
-        <route edges="f t i2 h2 g2 g"/>
+        <route edges="f t i2 s2 e2 d2 q g"/>
     </vehicle>
     <vehicle id="0.37" depart="31.71">
         <route edges="a n r v k l"/>
@@ -364,7 +364,7 @@
         <route edges="l2 w2 s2 o2 b2 a2"/>
     </vehicle>
     <vehicle id="5.6" depart="32.00">
-        <route edges="g2 q2 d e f f2"/>
+        <route edges="g2 q2 d r h i t2 f2"/>
     </vehicle>
     <vehicle id="1.27" depart="32.40">
         <route edges="j v2 r2 n2 b c"/>
@@ -373,7 +373,7 @@
         <route edges="a n r v k l"/>
     </vehicle>
     <vehicle id="4.22" depart="33.00">
-        <route edges="f t i2 h2 g2 g"/>
+        <route edges="f t i2 s2 e2 d2 q g"/>
     </vehicle>
     <vehicle id="0.39" depart="33.42">
         <route edges="a n r v k l"/>
@@ -385,19 +385,19 @@
         <route edges="l2 w2 s2 o2 b2 a2"/>
     </vehicle>
     <vehicle id="5.7" depart="34.00">
-        <route edges="g2 q2 d e f f2"/>
+        <route edges="g2 q2 d r h i t2 f2"/>
     </vehicle>
     <vehicle id="0.40" depart="34.28">
         <route edges="a n r v k l"/>
     </vehicle>
     <vehicle id="4.23" depart="34.50">
-        <route edges="f t i2 h2 g2 g"/>
+        <route edges="f t i2 s2 e2 d2 q g"/>
     </vehicle>
     <vehicle id="1.29" depart="34.80">
         <route edges="j v2 r2 n2 b c"/>
     </vehicle>
     <vehicle id="3.5" depart="35.00">
-        <route edges="b2 n r v k k2"/>
+        <route edges="b2 n r h w k2"/>
     </vehicle>
     <vehicle id="0.41" depart="35.14">
         <route edges="a n r v k l"/>
@@ -412,10 +412,10 @@
         <route edges="l2 w2 s2 o2 b2 a2"/>
     </vehicle>
     <vehicle id="4.24" depart="36.00">
-        <route edges="f t i2 h2 g2 g"/>
+        <route edges="f t i2 s2 e2 d2 q g"/>
     </vehicle>
     <vehicle id="5.8" depart="36.00">
-        <route edges="g2 q2 d e f f2"/>
+        <route edges="g2 q2 d r h i t2 f2"/>
     </vehicle>
     <vehicle id="0.43" depart="36.85">
         <route edges="a n r v k l"/>
@@ -424,7 +424,7 @@
         <route edges="j v2 r2 n2 b c"/>
     </vehicle>
     <vehicle id="4.25" depart="37.50">
-        <route edges="f t i2 h2 g2 g"/>
+        <route edges="f t i2 s2 e2 d2 q g"/>
     </vehicle>
     <vehicle id="0.44" depart="37.71">
         <route edges="a n r v k l"/>
@@ -433,7 +433,7 @@
         <route edges="l2 w2 s2 o2 b2 a2"/>
     </vehicle>
     <vehicle id="5.9" depart="38.00">
-        <route edges="g2 q2 d e f f2"/>
+        <route edges="g2 q2 d r h i t2 f2"/>
     </vehicle>
     <vehicle id="1.32" depart="38.40">
         <route edges="j v2 r2 n2 b c"/>
@@ -442,7 +442,7 @@
         <route edges="a n r v k l"/>
     </vehicle>
     <vehicle id="4.26" depart="39.00">
-        <route edges="f t i2 h2 g2 g"/>
+        <route edges="f t i2 s2 e2 d2 q g"/>
     </vehicle>
     <vehicle id="0.46" depart="39.42">
         <route edges="a n r v k l"/>
@@ -454,16 +454,16 @@
         <route edges="l2 w2 s2 o2 b2 a2"/>
     </vehicle>
     <vehicle id="3.6" depart="40.00">
-        <route edges="b2 n r v k k2"/>
+        <route edges="b2 n r h w k2"/>
     </vehicle>
     <vehicle id="5.10" depart="40.00">
-        <route edges="g2 q2 d e f f2"/>
+        <route edges="g2 q2 d r h i t2 f2"/>
     </vehicle>
     <vehicle id="0.47" depart="40.28">
         <route edges="a n r v k l"/>
     </vehicle>
     <vehicle id="4.27" depart="40.50">
-        <route edges="f t i2 h2 g2 g"/>
+        <route edges="f t i2 s2 e2 d2 q g"/>
     </vehicle>
     <vehicle id="1.34" depart="40.80">
         <route edges="j v2 r2 n2 b c"/>
@@ -481,10 +481,10 @@
         <route edges="l2 w2 s2 o2 b2 a2"/>
     </vehicle>
     <vehicle id="4.28" depart="42.00">
-        <route edges="f t i2 h2 g2 g"/>
+        <route edges="f t i2 s2 e2 d2 q g"/>
     </vehicle>
     <vehicle id="5.11" depart="42.00">
-        <route edges="g2 q2 d e f f2"/>
+        <route edges="g2 q2 d r h i t2 f2"/>
     </vehicle>
     <vehicle id="0.50" depart="42.85">
         <route edges="a n r v k l"/>
@@ -493,7 +493,7 @@
         <route edges="j v2 r2 n2 b c"/>
     </vehicle>
     <vehicle id="4.29" depart="43.50">
-        <route edges="f t i2 h2 g2 g"/>
+        <route edges="f t i2 s2 e2 d2 q g"/>
     </vehicle>
     <vehicle id="0.51" depart="43.71">
         <route edges="a n r v k l"/>
@@ -502,7 +502,7 @@
         <route edges="l2 w2 s2 o2 b2 a2"/>
     </vehicle>
     <vehicle id="5.12" depart="44.00">
-        <route edges="g2 q2 d e f f2"/>
+        <route edges="g2 q2 d r h i t2 f2"/>
     </vehicle>
     <vehicle id="1.37" depart="44.40">
         <route edges="j v2 r2 n2 b c"/>
@@ -511,10 +511,10 @@
         <route edges="a n r v k l"/>
     </vehicle>
     <vehicle id="3.7" depart="45.00">
-        <route edges="b2 n r v k k2"/>
+        <route edges="b2 n r h w k2"/>
     </vehicle>
     <vehicle id="4.30" depart="45.00">
-        <route edges="f t i2 h2 g2 g"/>
+        <route edges="f t i2 s2 e2 d2 q g"/>
     </vehicle>
     <vehicle id="0.53" depart="45.42">
         <route edges="a n r v k l"/>
@@ -526,13 +526,13 @@
         <route edges="l2 w2 s2 o2 b2 a2"/>
     </vehicle>
     <vehicle id="5.13" depart="46.00">
-        <route edges="g2 q2 d e f f2"/>
+        <route edges="g2 q2 d r h i t2 f2"/>
     </vehicle>
     <vehicle id="0.54" depart="46.28">
         <route edges="a n r v k l"/>
     </vehicle>
     <vehicle id="4.31" depart="46.50">
-        <route edges="f t i2 h2 g2 g"/>
+        <route edges="f t i2 s2 e2 d2 q g"/>
     </vehicle>
     <vehicle id="1.39" depart="46.80">
         <route edges="j v2 r2 n2 b c"/>
@@ -550,10 +550,10 @@
         <route edges="l2 w2 s2 o2 b2 a2"/>
     </vehicle>
     <vehicle id="4.32" depart="48.00">
-        <route edges="f t i2 h2 g2 g"/>
+        <route edges="f t i2 s2 e2 d2 q g"/>
     </vehicle>
     <vehicle id="5.14" depart="48.00">
-        <route edges="g2 q2 d e f f2"/>
+        <route edges="g2 q2 d r h i t2 f2"/>
     </vehicle>
     <vehicle id="0.57" depart="48.85">
         <route edges="a n r v k l"/>
@@ -562,7 +562,7 @@
         <route edges="j v2 r2 n2 b c"/>
     </vehicle>
     <vehicle id="4.33" depart="49.50">
-        <route edges="f t i2 h2 g2 g"/>
+        <route edges="f t i2 s2 e2 d2 q g"/>
     </vehicle>
     <vehicle id="0.58" depart="49.71">
         <route edges="a n r v k l"/>
@@ -571,10 +571,10 @@
         <route edges="l2 w2 s2 o2 b2 a2"/>
     </vehicle>
     <vehicle id="3.8" depart="50.00">
-        <route edges="b2 n r v k k2"/>
+        <route edges="b2 n r h w k2"/>
     </vehicle>
     <vehicle id="5.15" depart="50.00">
-        <route edges="g2 q2 d e f f2"/>
+        <route edges="g2 q2 d r h i t2 f2"/>
     </vehicle>
     <vehicle id="1.42" depart="50.40">
         <route edges="j v2 r2 n2 b c"/>
@@ -583,7 +583,7 @@
         <route edges="a n r v k l"/>
     </vehicle>
     <vehicle id="4.34" depart="51.00">
-        <route edges="f t i2 h2 g2 g"/>
+        <route edges="f t i2 s2 e2 d2 q g"/>
     </vehicle>
     <vehicle id="0.60" depart="51.42">
         <route edges="a n r v k l"/>
@@ -595,13 +595,13 @@
         <route edges="l2 w2 s2 o2 b2 a2"/>
     </vehicle>
     <vehicle id="5.16" depart="52.00">
-        <route edges="g2 q2 d e f f2"/>
+        <route edges="g2 q2 d r h i t2 f2"/>
     </vehicle>
     <vehicle id="0.61" depart="52.28">
         <route edges="a n r v k l"/>
     </vehicle>
     <vehicle id="4.35" depart="52.50">
-        <route edges="f t i2 h2 g2 g"/>
+        <route edges="f t i2 s2 e2 d2 q g"/>
     </vehicle>
     <vehicle id="1.44" depart="52.80">
         <route edges="j v2 r2 n2 b c"/>
@@ -619,22 +619,22 @@
         <route edges="l2 w2 s2 o2 b2 a2"/>
     </vehicle>
     <vehicle id="4.36" depart="54.00">
-        <route edges="f t i2 h2 g2 g"/>
+        <route edges="f t i2 s2 e2 d2 q g"/>
     </vehicle>
     <vehicle id="5.17" depart="54.00">
-        <route edges="g2 q2 d e f f2"/>
+        <route edges="g2 q2 d r h i t2 f2"/>
     </vehicle>
     <vehicle id="0.64" depart="54.85">
         <route edges="a n r v k l"/>
     </vehicle>
     <vehicle id="3.9" depart="55.00">
-        <route edges="b2 n r v k k2"/>
+        <route edges="b2 n r h w k2"/>
     </vehicle>
     <vehicle id="1.46" depart="55.20">
         <route edges="j v2 r2 n2 b c"/>
     </vehicle>
     <vehicle id="4.37" depart="55.50">
-        <route edges="f t i2 h2 g2 g"/>
+        <route edges="f t i2 s2 e2 d2 q g"/>
     </vehicle>
     <vehicle id="0.65" depart="55.70">
         <route edges="a n r v k l"/>
@@ -643,7 +643,7 @@
         <route edges="l2 w2 s2 o2 b2 a2"/>
     </vehicle>
     <vehicle id="5.18" depart="56.00">
-        <route edges="g2 q2 d e f f2"/>
+        <route edges="g2 q2 d r h i t2 f2"/>
     </vehicle>
     <vehicle id="1.47" depart="56.40">
         <route edges="j v2 r2 n2 b c"/>
@@ -652,7 +652,7 @@
         <route edges="a n r v k l"/>
     </vehicle>
     <vehicle id="4.38" depart="57.00">
-        <route edges="f t i2 h2 g2 g"/>
+        <route edges="f t i2 s2 e2 d2 q g"/>
     </vehicle>
     <vehicle id="0.67" depart="57.42">
         <route edges="a n r v k l"/>
@@ -664,13 +664,13 @@
         <route edges="l2 w2 s2 o2 b2 a2"/>
     </vehicle>
     <vehicle id="5.19" depart="58.00">
-        <route edges="g2 q2 d e f f2"/>
+        <route edges="g2 q2 d r h i t2 f2"/>
     </vehicle>
     <vehicle id="0.68" depart="58.28">
         <route edges="a n r v k l"/>
     </vehicle>
     <vehicle id="4.39" depart="58.50">
-        <route edges="f t i2 h2 g2 g"/>
+        <route edges="f t i2 s2 e2 d2 q g"/>
     </vehicle>
     <vehicle id="1.49" depart="58.80">
         <route edges="j v2 r2 n2 b c"/>
