@@ -37,10 +37,10 @@ public class GUI extends JFrame {
 		basicAgent.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				new StartAgents("basicAgents",flows.isSelected());
+				new StartAgents("reactAgents",flows.isSelected());
 			}
 		});
-		
+
 		txtCarros = new JTextField();
 		txtCarros.setHorizontalAlignment(SwingConstants.CENTER);
 		txtCarros.setEditable(false);
@@ -52,16 +52,47 @@ public class GUI extends JFrame {
 		proAgent.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				new StartAgents("proAgents",flows.isSelected());
+				new StartAgents("delibAgents",flows.isSelected());
 			}
 		});
-	
+
 		flows.setSelected(true);
 		getContentPane().add(flows);
 		group.add(flows);
 		getContentPane().add(proAgent);
 		getContentPane().add(random);
 		group.add(random);
+
+		JButton btnRuntests = new JButton("RunTests");
+		btnRuntests.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				Thread t = new Thread(){
+					public void run(){
+						boolean flow = true;
+						String [] agents = new String [] {"temporizador","reactAgents","delibAgents"};
+						for (int k = 0; k < 2; k++) {	
+							for(int i=0;i<3;i++){
+								for (int j = 0; j < 3; j++) {
+									new StartAgents(agents[i],flow);
+									while(!StartAgents.finish){
+										try {
+											Thread.sleep(1000);
+										} catch (InterruptedException e) {
+											//e.printStackTrace();
+										}
+									}
+								}
+							}
+							flow = false;
+						}
+
+					}
+				};
+				t.start();
+			}
+		});
+		getContentPane().add(btnRuntests);
 		setVisible(true);
 	}
 	public static void main(String[] args) {
