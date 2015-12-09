@@ -242,7 +242,7 @@ public class StartAgents {
 							e.printStackTrace();
 						}
 					} catch (Exception e) {// sumo fail -> try again later
-						//e.printStackTrace();
+						break;
 					}
 
 				}
