@@ -1,6 +1,7 @@
 package intelligent_traffic_lights;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -112,13 +113,13 @@ public class StartAgents {
 							mainContainer.kill();
 							api.close();
 							System.out.println("Simulation time => " + finishTime/1000 + "s");
-							System.out.println("Todos os tempos ficam guardados em logTimes.csv");
+							System.out.println("Todos os tempos ficam guardados em logTimes.csv e em dados/");
 							break;
 						}
 					} catch (StaleProxyException | UnimplementedMethod | IOException e) {
 						e.printStackTrace();
 					}
-				}//step			
+				}//step		
 			}
 		};
 		t.start();
@@ -173,31 +174,49 @@ public class StartAgents {
 
 		Thread stats = new Thread(){
 			public void run(){
+				PrintWriter evolucaoFile = null;
+				File folder = new File("dados");
+				if(!folder.exists())
+					folder.mkdir();
+				try {
+					evolucaoFile = new PrintWriter(new BufferedWriter(new FileWriter("dados/"+mode+"_"+!flows+"_"+System.currentTimeMillis()+".csv", true)));
+					evolucaoFile.println(mode+";"+ !flows+ ";");
+					evolucaoFile.println("tempo; nº carros na rede; nº carros parados na rede; velocidade média atual;");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				while(numCarrros>=350){
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
 				float carrosNaRede=0, carrosParados=0, mediaParado=0, mediaViagem=0;
 				int acc=0;
 				HashMap<String, Integer> tempoParado = new HashMap<>();
 				HashMap<String, Integer> tempoViagem = new HashMap<>();
 				ArrayList<String> parados = new ArrayList<>();
 				long lastT = System.currentTimeMillis();
+				long startT = lastT;
+				int numCarros = 0, numCarrosParados=0,velocidadeMediaAtual=0;
 				while(!finish){
-					int numCarros = 0;
+					numCarros = 0;
+					numCarrosParados=0;
+					velocidadeMediaAtual=0;
 					try {
-						numCarros=SumoCom.getAllVehiclesIds().size();
-					} catch (Exception e) {
-						break;
-					}
-					carrosNaRede+= numCarros;
-					try {
-						SumoCom.loadVehicles();
 						for(String v : SumoCom.getAllVehiclesIds()){
 							try {
-								SumoVehicle c =	SumoCom.getVehicleById(v);
+								SumoVehicle c = new SumoVehicle(v);
+								double cSpeed = c.getSpeed();
+								numCarros++;
+								velocidadeMediaAtual+=cSpeed;
 								if(tempoViagem.containsKey(v))
 									tempoViagem.put(v, (int) (tempoViagem.get(v) + (System.currentTimeMillis()-lastT)));
 								else tempoViagem.put(v, 0);
 
-								if(c.getSpeed() <= TlAgent.STOP_SPEED){
-									carrosParados++;
+								if(cSpeed <= TlAgent.STOP_SPEED){
+									numCarrosParados++;
 									if(parados.contains(v)){
 										tempoParado.put(v, (int) (tempoParado.get(v) + (System.currentTimeMillis()-lastT)));
 									}else {
@@ -212,6 +231,9 @@ public class StartAgents {
 								//e.printStackTrace();
 							}
 						}
+						evolucaoFile.println(System.currentTimeMillis()-startT+";"+numCarros+";"+numCarrosParados+";"+(velocidadeMediaAtual/(double)numCarros)+";");
+						carrosParados+=numCarrosParados;
+						carrosNaRede+=numCarros;
 						lastT = System.currentTimeMillis();
 						acc++;
 						try {
@@ -219,7 +241,7 @@ public class StartAgents {
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
-					} catch (Exception e) {
+					} catch (Exception e) {// sumo fail -> try again later
 						//e.printStackTrace();
 					}
 
@@ -234,14 +256,15 @@ public class StartAgents {
 				mediaViagem/=tempoViagem.entrySet().size();
 				carrosNaRede/=acc;
 				carrosParados/=acc;
-				PrintWriter out;
+				PrintWriter fileMedias;
 				try {
-					out = new PrintWriter(new BufferedWriter(new FileWriter("logTimes.csv", true)));
-					out.println(mode+";"+ !flows+ ";"+finishTime/1000+ ";"+carrosNaRede+";"+carrosParados+";"+(mediaParado/1000.0)+";"+(mediaViagem/1000.0)+";"+(carrosParados*100/carrosNaRede)+";"+(mediaParado*100/mediaViagem)+";");
-					out.close();
+					fileMedias = new PrintWriter(new BufferedWriter(new FileWriter("logTimes.csv", true)));
+					fileMedias.println(mode+";"+ !flows+ ";"+finishTime/1000+ ";"+carrosNaRede+";"+carrosParados+";"+(mediaParado/1000.0)+";"+(mediaViagem/1000.0)+";"+(carrosParados*100/carrosNaRede)+";"+(mediaParado*100/mediaViagem)+";");
+					fileMedias.close();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+				evolucaoFile.close();
 			}
 		};
 		stats.start();

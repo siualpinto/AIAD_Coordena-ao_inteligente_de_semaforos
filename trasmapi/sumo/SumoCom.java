@@ -883,7 +883,7 @@ public class SumoCom {
 	public static void loadVehicles() {
 		
 		ArrayList<String> vehiclesIDs = getAllVehiclesIds(); 
-		
+		vehicles.clear();
 		if(vehiclesIDs == null){
 			//<System.out.println("NULL routesIds");
 			return;
