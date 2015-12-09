@@ -180,8 +180,12 @@ public class StartAgents {
 				ArrayList<String> parados = new ArrayList<>();
 				long lastT = System.currentTimeMillis();
 				while(!finish){
-					acc++;
-					int numCarros = SumoCom.getAllVehiclesIds().size();;
+					int numCarros = 0;
+					try {
+						numCarros=SumoCom.getAllVehiclesIds().size();
+					} catch (Exception e) {
+						break;
+					}
 					carrosNaRede+= numCarros;
 					try {
 						SumoCom.loadVehicles();
@@ -191,7 +195,7 @@ public class StartAgents {
 								if(tempoViagem.containsKey(v))
 									tempoViagem.put(v, (int) (tempoViagem.get(v) + (System.currentTimeMillis()-lastT)));
 								else tempoViagem.put(v, 0);
-								
+
 								if(c.getSpeed() <= TlAgent.STOP_SPEED){
 									carrosParados++;
 									if(parados.contains(v)){
@@ -205,12 +209,13 @@ public class StartAgents {
 								}
 							} catch (Exception e) {
 								parados.remove(v);
-								e.printStackTrace();
+								//e.printStackTrace();
 							}
 						}
 						lastT = System.currentTimeMillis();
+						acc++;
 						try {
-							Thread.sleep(1000);
+							Thread.sleep(250);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
