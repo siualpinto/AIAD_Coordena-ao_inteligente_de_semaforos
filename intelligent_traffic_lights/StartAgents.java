@@ -5,7 +5,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Random;
 import jade.BootProfileImpl;
 import jade.core.ProfileImpl;
@@ -29,8 +31,6 @@ public class StartAgents {
 	private static int  numCarrros;
 	public static Random rand;
 	public static boolean finish;
-	public float carrosNaRede=0, carrosParados=0, tempoParado=0;
-	public int acc=0;
 	long finishTime = 0;
 	public StartAgents(String mode, boolean flows){	
 		finish=false;
@@ -107,8 +107,8 @@ public class StartAgents {
 				while(true){
 					try {
 						if(!api.simulationStep(0) || (SumoCom.getAllVehiclesIds().size()<=0 && (flows ||(!flows && numCarrros<=0)))){
-							finish=true;
 							finishTime = System.currentTimeMillis() - startTime;
+							finish=true;
 							mainContainer.kill();
 							api.close();
 							System.out.println("Simulation time => " + finishTime/1000 + "s");
@@ -173,33 +173,66 @@ public class StartAgents {
 
 		Thread stats = new Thread(){
 			public void run(){
+				float carrosNaRede=0, carrosParados=0, mediaParado=0, mediaViagem=0;
+				int acc=0;
+				HashMap<String, Integer> tempoParado = new HashMap<>();
+				HashMap<String, Integer> tempoViagem = new HashMap<>();
+				ArrayList<String> parados = new ArrayList<>();
+				long lastT = System.currentTimeMillis();
 				while(!finish){
 					acc++;
 					int numCarros = SumoCom.getAllVehiclesIds().size();;
 					carrosNaRede+= numCarros;
-					SumoCom.loadVehicles();
-					for(String v : SumoCom.getAllVehiclesIds()){
-						try {
-							SumoVehicle c =	SumoCom.getVehicleById(v);
-							if(c.getSpeed() <= TlAgent.STOP_SPEED){
-								carrosParados++;
+					try {
+						SumoCom.loadVehicles();
+						for(String v : SumoCom.getAllVehiclesIds()){
+							try {
+								SumoVehicle c =	SumoCom.getVehicleById(v);
+								if(tempoViagem.containsKey(v))
+									tempoViagem.put(v, (int) (tempoViagem.get(v) + (System.currentTimeMillis()-lastT)));
+								else tempoViagem.put(v, 0);
+								
+								if(c.getSpeed() <= TlAgent.STOP_SPEED){
+									carrosParados++;
+									if(parados.contains(v)){
+										tempoParado.put(v, (int) (tempoParado.get(v) + (System.currentTimeMillis()-lastT)));
+									}else {
+										tempoParado.put(v, 0);
+										parados.add(v);
+									}
+								}else {
+									parados.remove(v);
+								}
+							} catch (Exception e) {
+								parados.remove(v);
+								e.printStackTrace();
 							}
-						} catch (Exception e) {
+						}
+						lastT = System.currentTimeMillis();
+						try {
+							Thread.sleep(1000);
+						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
+					} catch (Exception e) {
+						//e.printStackTrace();
 					}
-					try {
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
+
 				}
+				for(Entry<String, Integer> entry : tempoParado.entrySet()) {
+					mediaParado+=entry.getValue();
+				}
+				for(Entry<String, Integer> entry : tempoViagem.entrySet()) {
+					mediaViagem+=entry.getValue();
+				}
+				mediaParado/=tempoParado.entrySet().size();
+				mediaViagem/=tempoViagem.entrySet().size();
 				carrosNaRede/=acc;
 				carrosParados/=acc;
 				PrintWriter out;
 				try {
 					out = new PrintWriter(new BufferedWriter(new FileWriter("logTimes.csv", true)));
-					out.println(mode+";"+ !flows+ ";"+finishTime/1000+ ";"+carrosNaRede+";"+carrosParados+";");
+					out.println(mode+";"+ !flows+ ";"+finishTime/1000+ ";"+carrosNaRede+";"+carrosParados+";"+(mediaParado/1000.0)+";"+(mediaViagem/1000.0)+";"+(carrosParados*100/carrosNaRede)+";"+(mediaParado*100/mediaViagem)+";");
 					out.close();
 				} catch (IOException e) {
 					e.printStackTrace();
