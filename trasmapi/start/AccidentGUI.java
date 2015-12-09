@@ -145,35 +145,35 @@ public class AccidentGUI extends javax.swing.JFrame {
 	private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
 
 
-		SumoCom.getVehicleById(jComboBox1.getSelectedIndex()).setSpeed(0.0);
-		
-		ODManager.setAccident(SumoCom.getVehicleById(jComboBox1.getSelectedIndex()).getEdgeId());
-		
-		System.out.println(SumoCom.getVehicleById(jComboBox1.getSelectedIndex()).getEdgeId());
-		
-		System.out.println("butt1 : "+ jComboBox1.getSelectedIndex());
-		jButton1.setEnabled(false);
-		jButton2.setEnabled(true);
-		jComboBox1.setEnabled(false);
+//		SumoCom.getVehicleById(jComboBox1.getSelectedIndex()).setSpeed(0.0);
+//		
+//		ODManager.setAccident(SumoCom.getVehicleById(jComboBox1.getSelectedIndex()).getEdgeId());
+//		
+//		System.out.println(SumoCom.getVehicleById(jComboBox1.getSelectedIndex()).getEdgeId());
+//		
+//		System.out.println("butt1 : "+ jComboBox1.getSelectedIndex());
+//		jButton1.setEnabled(false);
+//		jButton2.setEnabled(true);
+//		jComboBox1.setEnabled(false);
     }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
     	
-		SumoCom.getVehicleById(jComboBox1.getSelectedIndex()).setSpeed(-1.0);
-
-		ODManager.setNoAccident(SumoCom.getVehicleById(jComboBox1.getSelectedIndex()).getEdgeId());
-		
-		System.out.println(SumoCom.getVehicleById(jComboBox1.getSelectedIndex()).getEdgeId());
-		
-		System.out.println("butt2");
-		jButton2.setEnabled(false);
-		jButton1.setEnabled(true);
-		jComboBox1.setEnabled(true);
+//		SumoCom.getVehicleById(jComboBox1.getSelectedIndex()).setSpeed(-1.0);
+//
+//		ODManager.setNoAccident(SumoCom.getVehicleById(jComboBox1.getSelectedIndex()).getEdgeId());
+//		
+//		System.out.println(SumoCom.getVehicleById(jComboBox1.getSelectedIndex()).getEdgeId());
+//		
+//		System.out.println("butt2");
+//		jButton2.setEnabled(false);
+//		jButton1.setEnabled(true);
+//		jComboBox1.setEnabled(true);
     }
     
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {
 
-    	SumoCom.getVehicleById(jComboBox1.getSelectedIndex()).focus();
+    	//SumoCom.getVehicleById(jComboBox1.getSelectedIndex()).focus();
     }
 
     // Variables declaration - do not modify

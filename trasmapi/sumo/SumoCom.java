@@ -868,11 +868,56 @@ public class SumoCom {
 		edgesIDs = newEdges;
 	}
 
-	public static SumoVehicle getVehicleById(int vId) {
+	public static SumoVehicle getVehicleById(String vId) {
 
+		if(vehicles==null){
+			System.out.println("");
+		}
+		
 		for(SumoVehicle v: vehicles)
-			if(v.id.equals(vId+""))
+			if(v.id.equals(vId))
 				return v;
 		return null;
 	}
+
+	public static void loadVehicles() {
+		
+		ArrayList<String> vehiclesIDs = getAllVehiclesIds(); 
+		
+		if(vehiclesIDs == null){
+			//<System.out.println("NULL routesIds");
+			return;
+		}
+
+
+		RequestMessage reqMsg = new RequestMessage();
+
+		for(String s: vehiclesIDs){
+
+			Command cmd = new Command(Constants.CMD_GET_VEHICLE_VARIABLE);
+			Content cnt = new Content(Constants.VAR_VEHICLECLASS, s);
+
+			cmd.setContent(cnt);
+
+			reqMsg.addCommand(cmd);
+		}
+
+		try {
+
+			ResponseMessage rspMsg = query(reqMsg);
+
+			for(Command c: rspMsg.commands){
+
+				SumoVehicle newRoute = new SumoVehicle(c.content.id);
+
+				vehicles.add(newRoute);
+			}
+
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
 }

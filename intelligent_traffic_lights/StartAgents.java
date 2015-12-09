@@ -29,6 +29,9 @@ public class StartAgents {
 	private static int  numCarrros;
 	public static Random rand;
 	public static boolean finish;
+	public float carrosNaRede=0, carrosParados=0, tempoParado=0;
+	public int acc=0;
+	long finishTime = 0;
 	public StartAgents(String mode, boolean flows){	
 		finish=false;
 		numCarrros=350;
@@ -100,25 +103,22 @@ public class StartAgents {
 		Thread t = new Thread(){
 			public void run(){
 				long startTime = System.currentTimeMillis();
-				long finishTime = 0;
+
 				while(true){
 					try {
 						if(!api.simulationStep(0) || (SumoCom.getAllVehiclesIds().size()<=0 && (flows ||(!flows && numCarrros<=0)))){
+							finish=true;
 							finishTime = System.currentTimeMillis() - startTime;
 							mainContainer.kill();
 							api.close();
 							System.out.println("Simulation time => " + finishTime/1000 + "s");
-							System.out.println("Todos os tempos ficam guardados em logTimes.txt");
-							PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("logTimes.txt", true)));
-							out.println("Mode: "+mode+"\t random: "+ !flows+ "\t duration: "+finishTime/1000);
-							out.close();
-							finish=true;
+							System.out.println("Todos os tempos ficam guardados em logTimes.csv");
 							break;
 						}
 					} catch (StaleProxyException | UnimplementedMethod | IOException e) {
 						e.printStackTrace();
 					}
-				}
+				}//step			
 			}
 		};
 		t.start();
@@ -170,5 +170,42 @@ public class StartAgents {
 			};
 			carros.start();
 		}
+
+		Thread stats = new Thread(){
+			public void run(){
+				while(!finish){
+					acc++;
+					int numCarros = SumoCom.getAllVehiclesIds().size();;
+					carrosNaRede+= numCarros;
+					SumoCom.loadVehicles();
+					for(String v : SumoCom.getAllVehiclesIds()){
+						try {
+							SumoVehicle c =	SumoCom.getVehicleById(v);
+							if(c.getSpeed() <= TlAgent.STOP_SPEED){
+								carrosParados++;
+							}
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+				carrosNaRede/=acc;
+				carrosParados/=acc;
+				PrintWriter out;
+				try {
+					out = new PrintWriter(new BufferedWriter(new FileWriter("logTimes.csv", true)));
+					out.println(mode+";"+ !flows+ ";"+finishTime/1000+ ";"+carrosNaRede+";"+carrosParados+";");
+					out.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		};
+		stats.start();
 	}	
 }
