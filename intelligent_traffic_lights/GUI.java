@@ -69,22 +69,22 @@ public class GUI extends JFrame {
 			public void mousePressed(MouseEvent arg0) {
 				Thread t = new Thread(){
 					public void run(){
-						boolean flow = false;
+						boolean flow = true;
 						String [] agents = new String [] {"temporizador","reactAgents","delibAgents"};
 						for (int k = 0; k < 2; k++) {	
 							for(int i=0;i<3;i++){
-								for (int j = 0; j < 3; j++) {
-									new StartAgents(agents[i],flow);
-									while(!StartAgents.finish){
-										try {
-											Thread.sleep(1000);
-										} catch (InterruptedException e) {
-											//e.printStackTrace();
-										}
+								//for (int j = 0; j < 2; j++) {
+								new StartAgents(agents[i],flow);
+								while(!StartAgents.finish){
+									try {
+										Thread.sleep(1000);
+									} catch (InterruptedException e) {
+										//e.printStackTrace();
 									}
 								}
+								//}
 							}
-							flow = true;
+							flow = false;
 						}
 
 					}

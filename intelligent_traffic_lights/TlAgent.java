@@ -31,7 +31,7 @@ public class TlAgent extends Agent {
 	private static final long serialVersionUID = 1L;
 	public static double STOP_SPEED = 0.5;
 	public static int SLEEP_TIME = 5000;
-	public static String DEBUG_SEM = "1";
+	public static String DEBUG_SEM = "";
 	private String id;
 	public TrafficLight tl;
 	public ArrayList<String> controlledLanes;

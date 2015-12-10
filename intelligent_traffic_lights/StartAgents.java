@@ -164,7 +164,7 @@ public class StartAgents {
 
 							vehicle.changeTarget(destination);
 							numCarrros--;
-							Thread.sleep(300);
+							Thread.sleep(200);
 						} catch (UnimplementedMethod e) {
 							e.printStackTrace();
 						} catch (InterruptedException e) {
@@ -189,13 +189,13 @@ public class StartAgents {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				while(numCarrros>=350){
+				do{
 					try {
-						Thread.sleep(100);
+						Thread.sleep(500);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-				}
+				}while(numCarrros>=350 && !flows);
 				float carrosNaRede=0, carrosParados=0, mediaParado=0, mediaViagem=0;
 				int acc=0;
 				HashMap<String, Long> tempoParado = new HashMap<>();
