@@ -36,7 +36,7 @@ public class StartAgents {
 	public StartAgents(String mode, boolean flows){	
 		finish=false;
 		numCarrros=350;
-		rand = new Random(50);
+		rand = new Random(1);
 		if(JADE_GUI){
 			List<String> params = new ArrayList<String>();
 			params.add("-gui");
@@ -111,6 +111,7 @@ public class StartAgents {
 							finishTime = System.currentTimeMillis() - startTime;
 							finish=true;
 							mainContainer.kill();
+							Thread.sleep(1000);
 							api.close();
 							System.out.println("Simulation time => " + finishTime/1000 + "s");
 							System.out.println("Todos os tempos ficam guardados em logTimes.csv e em dados/");
@@ -118,6 +119,8 @@ public class StartAgents {
 						}
 					} catch (StaleProxyException | UnimplementedMethod | IOException e) {
 						e.printStackTrace();
+					} catch (InterruptedException e) {
+						//e.printStackTrace();
 					}
 				}//step		
 			}
@@ -130,8 +133,8 @@ public class StartAgents {
 						try {
 
 							//carros comecam e acabam rotas sempre nas estradas laterais ao mapa
-							String[] s = new String[] {"a","m","n","j","l2","y2","p","c2"};
-							String[] f = new String[] {"a2","m2","c","p2","y","l","j2","n2"};
+							String[] s = new String[] {"a","b","t","k2","q","m","u","j","l2","y2","p","c2"};
+							String[] f = new String[] {"a2","b2","t2","k","q2","m2","c","p2","y","l","j2","u2"};
 
 							String origin = s[rand.nextInt(s.length)];
 							String destination = f[rand.nextInt(f.length)];
@@ -160,7 +163,7 @@ public class StartAgents {
 
 							vehicle.changeTarget(destination);
 							numCarrros--;
-							Thread.sleep(150);
+							Thread.sleep(rand.nextInt(200));
 						} catch (UnimplementedMethod e) {
 							e.printStackTrace();
 						} catch (InterruptedException e) {
@@ -179,7 +182,7 @@ public class StartAgents {
 				if(!folder.exists())
 					folder.mkdir();
 				try {
-					evolucaoFile = new PrintWriter(new BufferedWriter(new FileWriter("dados/"+mode+"_"+!flows+"_"+System.currentTimeMillis()+".csv", true)));
+					evolucaoFile = new PrintWriter(new BufferedWriter(new FileWriter("dados/"+System.currentTimeMillis()+"_"+mode+"_"+!flows+".csv", true)));
 					evolucaoFile.println(mode+";"+ !flows+ ";");
 					evolucaoFile.println("tempo; nº carros na rede; nº carros parados na rede; velocidade média atual;");
 				} catch (IOException e) {
@@ -194,33 +197,37 @@ public class StartAgents {
 				}
 				float carrosNaRede=0, carrosParados=0, mediaParado=0, mediaViagem=0;
 				int acc=0;
-				HashMap<String, Integer> tempoParado = new HashMap<>();
-				HashMap<String, Integer> tempoViagem = new HashMap<>();
+				HashMap<String, Long> tempoParado = new HashMap<>();
+				HashMap<String, Long> tempoViagem = new HashMap<>();
 				ArrayList<String> parados = new ArrayList<>();
 				long lastT = System.currentTimeMillis();
 				long startT = lastT;
-				int numCarros = 0, numCarrosParados=0,velocidadeMediaAtual=0;
+				int numCarros = 0, numCarrosParados=0,velocidadeAtual=0;
+				double cSpeed=0.0;
+				Long entryValue=0L;
 				while(!finish){
 					numCarros = 0;
 					numCarrosParados=0;
-					velocidadeMediaAtual=0;
+					velocidadeAtual=0;
 					try {
 						for(String v : SumoCom.getAllVehiclesIds()){
 							try {
 								SumoVehicle c = new SumoVehicle(v);
-								double cSpeed = c.getSpeed();
+								cSpeed = c.getSpeed();
 								numCarros++;
-								velocidadeMediaAtual+=cSpeed;
-								if(tempoViagem.containsKey(v))
-									tempoViagem.put(v, (int) (tempoViagem.get(v) + (System.currentTimeMillis()-lastT)));
-								else tempoViagem.put(v, 0);
+								velocidadeAtual+=cSpeed;
+								entryValue = tempoViagem.get(v);
+								if(entryValue!=null)
+									tempoViagem.put(v, (entryValue + (System.currentTimeMillis()-lastT)));
+								else tempoViagem.put(v, 0L);
 
 								if(cSpeed <= TlAgent.STOP_SPEED){
 									numCarrosParados++;
-									if(parados.contains(v)){
-										tempoParado.put(v, (int) (tempoParado.get(v) + (System.currentTimeMillis()-lastT)));
-									}else {
-										tempoParado.put(v, 0);
+									if(parados.contains(v)){// se estava parado na ultima medição
+										tempoParado.put(v, (tempoParado.get(v) + (System.currentTimeMillis()-lastT)));
+									}else {// se estava andar e parou agora
+										if(!tempoParado.containsKey(v))
+											tempoParado.put(v, 0L);
 										parados.add(v);
 									}
 								}else {
@@ -231,7 +238,8 @@ public class StartAgents {
 								//e.printStackTrace();
 							}
 						}
-						evolucaoFile.println(System.currentTimeMillis()-startT+";"+numCarros+";"+numCarrosParados+";"+(velocidadeMediaAtual/(double)numCarros)+";");
+						//System.out.println(numCarrosParados+"de"+numCarros+"parados");
+						evolucaoFile.println(System.currentTimeMillis()-startT+";"+numCarros+";"+numCarrosParados+";"+(velocidadeAtual/(double)numCarros)+";");
 						carrosParados+=numCarrosParados;
 						carrosNaRede+=numCarros;
 						lastT = System.currentTimeMillis();
@@ -246,10 +254,10 @@ public class StartAgents {
 					}
 
 				}
-				for(Entry<String, Integer> entry : tempoParado.entrySet()) {
+				for(Entry<String, Long> entry : tempoParado.entrySet()) {
 					mediaParado+=entry.getValue();
 				}
-				for(Entry<String, Integer> entry : tempoViagem.entrySet()) {
+				for(Entry<String, Long> entry : tempoViagem.entrySet()) {
 					mediaViagem+=entry.getValue();
 				}
 				mediaParado/=tempoParado.entrySet().size();
