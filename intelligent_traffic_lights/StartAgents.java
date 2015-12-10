@@ -185,7 +185,7 @@ public class StartAgents {
 				try {
 					evolucaoFile = new PrintWriter(new BufferedWriter(new FileWriter("dados/"+System.currentTimeMillis()+"_"+mode+"_"+!flows+".csv", true)));
 					evolucaoFile.println(mode+";"+ !flows+ ";");
-					evolucaoFile.println("tempo; nº carros na rede; nº carros parados na rede; velocidade média atual;");
+					evolucaoFile.println("tempo; Nº carros; Nº carros parados; Velocidade média;");
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -201,6 +201,7 @@ public class StartAgents {
 				HashMap<String, Long> tempoParado = new HashMap<>();
 				HashMap<String, Long> tempoViagem = new HashMap<>();
 				ArrayList<String> parados = new ArrayList<>();
+				ArrayList<Double> velocidade = new ArrayList<>();
 				long lastT = System.currentTimeMillis();
 				long startT = lastT;
 				int numCarros = 0, numCarrosParados=0,velocidadeAtual=0;
@@ -241,6 +242,7 @@ public class StartAgents {
 						}
 						//System.out.println(numCarrosParados+"de"+numCarros+"parados");
 						evolucaoFile.println(System.currentTimeMillis()-startT+";"+numCarros+";"+numCarrosParados+";"+(velocidadeAtual/(double)numCarros)+";");
+						velocidade.add((velocidadeAtual/(double)numCarros));
 						carrosParados+=numCarrosParados;
 						carrosNaRede+=numCarros;
 						lastT = System.currentTimeMillis();
@@ -261,6 +263,11 @@ public class StartAgents {
 				for(Entry<String, Long> entry : tempoViagem.entrySet()) {
 					mediaViagem+=entry.getValue();
 				}
+				double velocidadeMedia=0;
+				for(Double d : velocidade){
+					velocidadeMedia+=d;
+				}
+				velocidadeMedia/=velocidade.size();
 				mediaParado/=tempoParado.entrySet().size();
 				mediaViagem/=tempoViagem.entrySet().size();
 				carrosNaRede/=acc;
@@ -268,7 +275,7 @@ public class StartAgents {
 				PrintWriter fileMedias;
 				try {
 					fileMedias = new PrintWriter(new BufferedWriter(new FileWriter("logTimes.csv", true)));
-					fileMedias.println(mode+";"+ !flows+ ";"+finishTime/1000+ ";"+carrosNaRede+";"+carrosParados+";"+(mediaParado/1000.0)+";"+(mediaViagem/1000.0)+";"+(carrosParados*100/carrosNaRede)+";"+(mediaParado*100/mediaViagem)+";");
+					fileMedias.println(mode+";"+ !flows+ ";"+finishTime/1000+ ";"+carrosNaRede+";"+carrosParados+";"+(mediaParado/1000.0)+";"+(mediaViagem/1000.0)+";"+(carrosParados*100/carrosNaRede)+";"+(mediaParado*100/mediaViagem)+";"+velocidadeMedia+";");
 					fileMedias.close();
 				} catch (IOException e) {
 					e.printStackTrace();
