@@ -17,10 +17,11 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 
 public class TlReactiveAgent extends TlAgent{
 	private static final long serialVersionUID = 1L;
+
 	public TlReactiveAgent(String tlID) {
 		super(tlID);
 	}
-	
+
 	@Override
 	protected void setup() {
 		DFAgentDescription ad = new DFAgentDescription();
@@ -53,28 +54,70 @@ public class TlReactiveAgent extends TlAgent{
 		super.takeDown();
 	}
 
-	
+
 	// ==================================================================================
 	//    NestedClass
 	// ==================================================================================
 	public class TlReactiveBehaviour extends SimpleBehaviour {
 		private static final long serialVersionUID = 1L;
-
+		private int lastTimeStoped;
 		public TlReactiveBehaviour(Agent a) {
 			super(a);
+			lastTimeStoped=0;
 		}
 
 		@Override
 		public void action() {
+			chooseDirection();
+		}
+
+		@Override
+		public boolean done() {
+			return false;
+		}
+
+		public void chooseDirection(){
 			try {
 				int numCarrosVH[] = verticalHasMoreCars();
 				int diff=numCarrosVH[0]-numCarrosVH[1]; 
-				if(diff>0){	
-					if(!tl.getState().equals(verticalGreen))
+				if(diff>0){	// mais carros na vertical
+					if(!tl.getState().equals(verticalGreen)){ // está na horizontal
+						lastTimeStoped = numCarrosVH[0];
 						changeState(horizontalYellow, verticalGreen);
-				}else if(diff<0){
-					if(!tl.getState().equals(horizontalGreen))
+						print("muda vertical");
+					}else{ // manter vertical
+						if(lastTimeStoped <= numCarrosVH[0]){ // esteve vertical mas ninguem passou
+							lastTimeStoped = numCarrosVH[1];
+							changeState(verticalYellow,horizontalGreen); // logo troca
+							print("muda horizontal, ninguem passou vertical");
+						}else print("mantem vertical");
+					}
+				}else if(diff<0){ // mais carros na horizontal
+					if(!tl.getState().equals(horizontalGreen)){ // está vertical
+						lastTimeStoped = numCarrosVH[1];
 						changeState(verticalYellow,horizontalGreen);
+						print("muda horizontal");
+					}else {// manter horizontal
+						if(lastTimeStoped <= numCarrosVH[1]){ // esteve horizontal mas ninguem passou
+							lastTimeStoped = numCarrosVH[0];
+							changeState(horizontalYellow, verticalGreen); // logo troca
+							print("muda vertical, ninguem passou horizontal");
+						}else print("mantem horizontal");
+					}
+				} else { // tem numero igual de carros em cada direção
+					if(tl.getState().equals(verticalGreen)){// está vertical
+						if(lastTimeStoped <= numCarrosVH[0]){ // esteve vertical mas ninguem passou
+							lastTimeStoped = numCarrosVH[1];
+							changeState(verticalYellow,horizontalGreen); // logo troca
+							print("muda horizontal, ninguem passou vertical #2");
+						}else print("mantem #1");
+					}else if(tl.getState().equals(horizontalGreen)){ // está horizontal
+						if(lastTimeStoped <= numCarrosVH[1]){ // esteve horizontal mas ninguem passou
+							lastTimeStoped = numCarrosVH[0];
+							changeState(horizontalYellow, verticalGreen); // logo troca
+							print("muda vertical, ninguem passou horizontal #2");
+						}else print("mantem #2");
+					}
 				}
 			} catch (UnimplementedMethod e) {
 				e.printStackTrace();
@@ -84,11 +127,6 @@ public class TlReactiveAgent extends TlAgent{
 			} catch (InterruptedException e) {
 				//e.printStackTrace();
 			}
-		}
-
-		@Override
-		public boolean done() {
-			return false;
 		}
 	}
 }

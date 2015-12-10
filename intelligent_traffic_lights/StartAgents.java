@@ -131,13 +131,14 @@ public class StartAgents {
 				public void run(){
 					while(numCarrros>0){
 						try {
-
+							
 							//carros comecam e acabam rotas sempre nas estradas laterais ao mapa
-							String[] s = new String[] {"a","b","t","k2","q","m","u","j","l2","y2","p","c2"};
-							String[] f = new String[] {"a2","b2","t2","k","q2","m2","c","p2","y","l","j2","u2"};
-
-							String origin = s[rand.nextInt(s.length)];
-							String destination = f[rand.nextInt(f.length)];
+							String[] s = new String[] {"a","m","u2","j","l2","y2","p","c2"};
+ 							String[] f = new String[] {"a2","m2","c","p2","y","l","j2","u"};
+ 
+ 							String origin = s[rand.nextInt(s.length)];
+ 							String destination = f[rand.nextInt(f.length)];
+							
 							/*
 							// carros comecam e acabam em qualquer edge
 							String origin= SumoCom.edgesIDs.get(rand.nextInt(SumoCom.edgesIDs.size()));
@@ -145,8 +146,8 @@ public class StartAgents {
 							do{
 								destination = SumoCom.edgesIDs.get(rand.nextInt(SumoCom.edgesIDs.size())); 
 							}while(origin.equals(destination));
-							 */
-
+							
+							*/
 							String vehicleType = SumoCom.vehicleTypesIDs.get(1);
 							String routeId = SumoCom.getRouteId(origin, null);
 							int departureTime = 0;
@@ -163,7 +164,7 @@ public class StartAgents {
 
 							vehicle.changeTarget(destination);
 							numCarrros--;
-							Thread.sleep(rand.nextInt(200));
+							Thread.sleep(300);
 						} catch (UnimplementedMethod e) {
 							e.printStackTrace();
 						} catch (InterruptedException e) {
