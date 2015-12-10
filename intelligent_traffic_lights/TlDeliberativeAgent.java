@@ -118,9 +118,11 @@ public class TlDeliberativeAgent extends TlAgent{
 	// ==================================================================================
 	public class TlProBehaviour extends SimpleBehaviour {
 		private static final long serialVersionUID = 1L;
+		private int lastTimeStoped;
 
 		public TlProBehaviour(Agent a) {
 			super(a);
+			lastTimeStoped=0;
 		}
 
 		@Override
@@ -128,12 +130,13 @@ public class TlDeliberativeAgent extends TlAgent{
 
 
 			int numCarrosVH[] = verticalHasMoreCars();
-			int diff=numCarrosVH[0]-numCarrosVH[1]; 
-			if(diff>0){	
-				direcaoEscolhida="VERTICAL";
-			}else if(diff<0){
-				direcaoEscolhida="HORIZONTAL";
-			}
+			chooseDirection(numCarrosVH);
+//			int diff=numCarrosVH[0]-numCarrosVH[1]; 
+//			if(diff>0){	
+//				direcaoEscolhida="VERTICAL";
+//			}else if(diff<0){
+//				direcaoEscolhida="HORIZONTAL";
+//			}
 
 			print("Tenho mais Carros em: "+direcaoEscolhida);
 
@@ -232,7 +235,55 @@ public class TlDeliberativeAgent extends TlAgent{
 		public boolean done() {
 			return false;
 		}
+
+		public void chooseDirection(int numCarrosVH[]){
+			try {
+				int diff=numCarrosVH[0]-numCarrosVH[1]; 
+				if(diff>0){	// mais carros na vertical
+					if(!tl.getState().equals(verticalGreen)){ // está na horizontal
+						lastTimeStoped = numCarrosVH[0];
+						direcaoEscolhida="VERTICAL";
+						print("muda vertical");
+					}else{ // manter vertical
+						if(lastTimeStoped <= numCarrosVH[0]){ // esteve vertical mas ninguem passou
+							lastTimeStoped = numCarrosVH[1];
+							direcaoEscolhida="HORIZONTAL";
+							print("muda horizontal, ninguem passou vertical");
+						}else print("mantem vertical");
+					}
+				}else if(diff<0){ // mais carros na horizontal
+					if(!tl.getState().equals(horizontalGreen)){ // está vertical
+						lastTimeStoped = numCarrosVH[1];
+						direcaoEscolhida="HORIZONTAL";
+						print("muda horizontal");
+					}else {// manter horizontal
+						if(lastTimeStoped <= numCarrosVH[1]){ // esteve horizontal mas ninguem passou
+							lastTimeStoped = numCarrosVH[0];
+							direcaoEscolhida="VERTICAL";
+							print("muda vertical, ninguem passou horizontal");
+						}else print("mantem horizontal");
+					}
+				} else { // tem numero igual de carros em cada direção
+					if(tl.getState().equals(verticalGreen)){// está vertical
+						if(lastTimeStoped <= numCarrosVH[0]){ // esteve vertical mas ninguem passou
+							lastTimeStoped = numCarrosVH[1];
+							direcaoEscolhida="HORIZONTAL";
+							print("muda horizontal, ninguem passou vertical #2");
+						}else print("mantem #1");
+					}else if(tl.getState().equals(horizontalGreen)){ // está horizontal
+						if(lastTimeStoped <= numCarrosVH[1]){ // esteve horizontal mas ninguem passou
+							lastTimeStoped = numCarrosVH[0];
+							direcaoEscolhida="VERTICAL";
+							print("muda vertical, ninguem passou horizontal #2");
+						}else print("mantem #2");
+					}
+				}
+			} catch (UnimplementedMethod e) {
+				e.printStackTrace();
+			}
+		}
 	}
+
 
 	private void sendMessage(DFAgentDescription a){
 		ACLMessage msg = new ACLMessage(ACLMessage.QUERY_REF);

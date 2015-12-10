@@ -48,7 +48,7 @@ public class GUI extends JFrame {
 		getContentPane().add(txtCarros);
 		txtCarros.setColumns(10);
 		getContentPane().add(basicAgent);
-		JButton proAgent = new JButton("Onda Verde");
+		JButton proAgent = new JButton("Cooperação");
 		proAgent.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
