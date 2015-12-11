@@ -164,7 +164,7 @@ public class StartAgents {
 
 							vehicle.changeTarget(destination);
 							numCarrros--;
-							Thread.sleep(200);
+							Thread.sleep(rand.nextInt(300));
 						} catch (UnimplementedMethod e) {
 							e.printStackTrace();
 						} catch (InterruptedException e) {

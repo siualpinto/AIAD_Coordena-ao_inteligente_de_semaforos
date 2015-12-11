@@ -69,7 +69,7 @@ public class GUI extends JFrame {
 			public void mousePressed(MouseEvent arg0) {
 				Thread t = new Thread(){
 					public void run(){
-						boolean flow = true;
+						boolean flow = false;
 						String [] agents = new String [] {"temporizador","reactAgents","delibAgents"};
 						for (int k = 0; k < 2; k++) {	
 							for(int i=0;i<3;i++){
@@ -84,7 +84,7 @@ public class GUI extends JFrame {
 								}
 								//}
 							}
-							flow = false;
+							flow = true;
 						}
 
 					}

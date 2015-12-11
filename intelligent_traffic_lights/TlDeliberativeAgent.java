@@ -245,7 +245,7 @@ public class TlDeliberativeAgent extends TlAgent{
 						direcaoEscolhida="VERTICAL";
 						print("muda vertical");
 					}else{ // manter vertical
-						if(lastTimeStoped <= numCarrosVH[0]){ // esteve vertical mas ninguem passou
+						if(lastTimeStoped <= numCarrosVH[0] && numCarrosVH[1]!=0){ // esteve vertical mas ninguem passou
 							lastTimeStoped = numCarrosVH[1];
 							direcaoEscolhida="HORIZONTAL";
 							print("muda horizontal, ninguem passou vertical");
@@ -257,7 +257,7 @@ public class TlDeliberativeAgent extends TlAgent{
 						direcaoEscolhida="HORIZONTAL";
 						print("muda horizontal");
 					}else {// manter horizontal
-						if(lastTimeStoped <= numCarrosVH[1]){ // esteve horizontal mas ninguem passou
+						if(lastTimeStoped <= numCarrosVH[1] && numCarrosVH[0]!=0){ // esteve horizontal mas ninguem passou
 							lastTimeStoped = numCarrosVH[0];
 							direcaoEscolhida="VERTICAL";
 							print("muda vertical, ninguem passou horizontal");
@@ -265,13 +265,13 @@ public class TlDeliberativeAgent extends TlAgent{
 					}
 				} else { // tem numero igual de carros em cada direção
 					if(tl.getState().equals(verticalGreen)){// está vertical
-						if(lastTimeStoped <= numCarrosVH[0]){ // esteve vertical mas ninguem passou
+						if(lastTimeStoped <= numCarrosVH[0] && numCarrosVH[1]!=0){ // esteve vertical mas ninguem passou
 							lastTimeStoped = numCarrosVH[1];
 							direcaoEscolhida="HORIZONTAL";
 							print("muda horizontal, ninguem passou vertical #2");
 						}else print("mantem #1");
 					}else if(tl.getState().equals(horizontalGreen)){ // está horizontal
-						if(lastTimeStoped <= numCarrosVH[1]){ // esteve horizontal mas ninguem passou
+						if(lastTimeStoped <= numCarrosVH[1] && numCarrosVH[0]!=0){ // esteve horizontal mas ninguem passou
 							lastTimeStoped = numCarrosVH[0];
 							direcaoEscolhida="VERTICAL";
 							print("muda vertical, ninguem passou horizontal #2");
