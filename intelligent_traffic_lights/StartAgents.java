@@ -112,6 +112,7 @@ public class StartAgents {
 							finish=true;
 							mainContainer.kill();
 							Thread.sleep(1000);
+							sumo.close();
 							api.close();
 							System.out.println("Simulation time => " + finishTime/1000 + "s");
 							System.out.println("Todos os tempos ficam guardados em logTimes.csv e em dados/");
@@ -242,7 +243,8 @@ public class StartAgents {
 						}
 						//System.out.println(numCarrosParados+"de"+numCarros+"parados");
 						evolucaoFile.println(System.currentTimeMillis()-startT+";"+numCarros+";"+numCarrosParados+";"+(velocidadeAtual/(double)numCarros)+";");
-						velocidade.add((velocidadeAtual/(double)numCarros));
+						if(numCarros>0)
+							velocidade.add((velocidadeAtual/(double)numCarros));
 						carrosParados+=numCarrosParados;
 						carrosNaRede+=numCarros;
 						lastT = System.currentTimeMillis();
