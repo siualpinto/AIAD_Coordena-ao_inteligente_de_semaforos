@@ -72,8 +72,10 @@ public class TlDeliberativeAgent extends TlAgent{
 
 
 		int id = Integer.parseInt(tl.getId());
+		if(id!=8)
 		searchVizinho(""+(id-1),vizinhosHorizontal);
-		searchVizinho(""+(id+1),vizinhosHorizontal);
+		if(id!=7 && id!=11)
+			searchVizinho(""+(id+1),vizinhosHorizontal);
 		searchVizinho(""+(id-4),vizinhosVertical);
 		searchVizinho(""+(id+4),vizinhosVertical);
 
@@ -131,12 +133,12 @@ public class TlDeliberativeAgent extends TlAgent{
 
 			int numCarrosVH[] = verticalHasMoreCars();
 			chooseDirection(numCarrosVH);
-//			int diff=numCarrosVH[0]-numCarrosVH[1]; 
-//			if(diff>0){	
-//				direcaoEscolhida="VERTICAL";
-//			}else if(diff<0){
-//				direcaoEscolhida="HORIZONTAL";
-//			}
+			//			int diff=numCarrosVH[0]-numCarrosVH[1]; 
+			//			if(diff>0){	
+			//				direcaoEscolhida="VERTICAL";
+			//			}else if(diff<0){
+			//				direcaoEscolhida="HORIZONTAL";
+			//			}
 
 			print("Tenho mais Carros em: "+direcaoEscolhida);
 
